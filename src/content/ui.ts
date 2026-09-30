@@ -90,7 +90,7 @@ const en = {
   journey: {
     title: "Political Journey",
     description:
-      "The political and public journey of Raja Raj Rajeshwar Singh, and the earlier political record of his father, Raj Brajraj Singh.",
+      "The political and public journey of Raja Raj Rajeshwar Singh, and the earlier political record of his father, Raja Brajraj Singh.",
     own: "Raja Raj Rajeshwar Singh",
     ownLead: "In public life and the Bharatiya Janata Party",
     fatherLabel: "His father",
@@ -99,11 +99,11 @@ const en = {
   milestones: {
     title: "Milestones",
     description:
-      "A dated timeline of the Jhandi Raj family and of Raj Brajraj Singh's public life, drawn from documented sources.",
+      "A dated timeline of the Jhandi Raj family and of Raja Brajraj Singh's public life, drawn from documented sources.",
     lead: "Dates are given only where the source material records them.",
     all: "All",
     family: "Family history",
-    father: "Raj Brajraj Singh",
+    father: "Raja Brajraj Singh",
     filter: "Filter timeline",
   },
   publicLife: {
@@ -183,6 +183,18 @@ const en = {
     privacy: "Privacy Policy",
     terms: "Terms",
     updated: "Last updated",
+  },
+  feed: {
+    title: "Latest from social media",
+    lead: "Recent posts and videos from the official Facebook page and YouTube channel.",
+    facebook: "Facebook",
+    facebookOpen: "Open the Facebook page",
+    facebookLoading: "Loading the latest posts…",
+    facebookNote: "This panel is provided by Facebook and may set Facebook cookies.",
+    youtube: "Latest videos",
+    youtubeOpen: "Open the YouTube channel",
+    watch: "Watch on YouTube",
+    empty: "The latest videos could not be loaded right now. Please visit the channel directly.",
   },
   footer: {
     tagline: "Official profile of Raja Raj Rajeshwar Singh (Jhandi-Raj).",
@@ -306,7 +318,7 @@ const hi: Dict = {
   journey: {
     title: "राजनीतिक यात्रा",
     description:
-      "राजा राज राजेश्वर सिंह की राजनीतिक और सार्वजनिक यात्रा, तथा उनके पिता राज ब्रजराज सिंह का पूर्व राजनीतिक अभिलेख।",
+      "राजा राज राजेश्वर सिंह की राजनीतिक और सार्वजनिक यात्रा, तथा उनके पिता राजा ब्रजराज सिंह का पूर्व राजनीतिक अभिलेख।",
     own: "राजा राज राजेश्वर सिंह",
     ownLead: "सार्वजनिक जीवन और भारतीय जनता पार्टी में",
     fatherLabel: "उनके पिता",
@@ -315,11 +327,11 @@ const hi: Dict = {
   milestones: {
     title: "प्रमुख पड़ाव",
     description:
-      "झंडी राज परिवार और राज ब्रजराज सिंह के सार्वजनिक जीवन की, प्रलेखित स्रोतों पर आधारित तिथिवार समय-रेखा।",
+      "झंडी राज परिवार और राजा ब्रजराज सिंह के सार्वजनिक जीवन की, प्रलेखित स्रोतों पर आधारित तिथिवार समय-रेखा।",
     lead: "तिथियाँ केवल वहीं दी गई हैं जहाँ स्रोत सामग्री में दर्ज हैं।",
     all: "सभी",
     family: "पारिवारिक इतिहास",
-    father: "राज ब्रजराज सिंह",
+    father: "राजा ब्रजराज सिंह",
     filter: "समय-रेखा छानें",
   },
   publicLife: {
@@ -399,6 +411,18 @@ const hi: Dict = {
     privacy: "गोपनीयता नीति",
     terms: "उपयोग की शर्तें",
     updated: "अंतिम अद्यतन",
+  },
+  feed: {
+    title: "सोशल मीडिया पर ताज़ा",
+    lead: "आधिकारिक फ़ेसबुक पेज और यूट्यूब चैनल की हाल की पोस्ट और वीडियो।",
+    facebook: "फ़ेसबुक",
+    facebookOpen: "फ़ेसबुक पेज खोलें",
+    facebookLoading: "ताज़ा पोस्ट लोड हो रही हैं…",
+    facebookNote: "यह पैनल फ़ेसबुक द्वारा दिया जाता है और फ़ेसबुक कुकीज़ लगा सकता है।",
+    youtube: "नवीनतम वीडियो",
+    youtubeOpen: "यूट्यूब चैनल खोलें",
+    watch: "यूट्यूब पर देखें",
+    empty: "नवीनतम वीडियो अभी लोड नहीं हो सके। कृपया चैनल पर सीधे जाएँ।",
   },
   footer: {
     tagline: "राजा राज राजेश्वर सिंह (झंडी-राज) की आधिकारिक प्रोफ़ाइल।",

@@ -76,26 +76,31 @@ export function Footer({ lang }: { lang: Lang }) {
           </div>
         </div>
 
-        <a
-          href={site.praib.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-14 flex items-center justify-between gap-6 border border-white/20 px-6 py-6 transition-[border-color,background-color] duration-300 hover:border-saffron/70 hover:bg-white/[0.04] sm:px-8 sm:py-7"
-        >
-          <span className="min-w-0">
-            <span className="block text-[0.8125rem] font-semibold uppercase tracked text-white/60">
-              {d.footer.creditLabel}
+        {/* Digital experience partner: a rounded partner badge, not a full-width box. */}
+        <div className="mt-14 flex sm:justify-end">
+          <a
+            href={site.praib.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex w-full max-w-md items-center justify-between gap-4 rounded-full border border-white/25 bg-white/[0.03] py-3 pl-6 pr-3 transition-[border-color,background-color] duration-300 hover:border-saffron/70 hover:bg-white/[0.07] sm:w-auto sm:min-w-[24rem] sm:gap-10 sm:pl-9"
+          >
+            <span className="min-w-0">
+              <span className="block text-[0.8125rem] font-semibold uppercase tracked text-white/60">
+                {d.footer.creditLabel}
+              </span>
+              <span className="mt-1 block whitespace-nowrap text-[1.1rem] font-bold leading-tight text-white min-[380px]:text-xl sm:text-[1.6rem]">
+                {site.praib.name}
+              </span>
             </span>
-            <span className="mt-2 block text-2xl font-bold leading-tight text-white transition-colors duration-300 group-hover:text-saffron sm:text-3xl">
-              {site.praib.name}
+            <span
+              aria-hidden="true"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-saffron min-[380px]:h-14 min-[380px]:w-14 text-saffron transition-[background-color,color,transform] duration-300 group-hover:rotate-12 group-hover:scale-105 group-hover:bg-saffron group-hover:text-ink sm:h-16 sm:w-16"
+            >
+              <ArrowUpRight className="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-rotate-12 sm:h-7 sm:w-7" />
             </span>
-          </span>
-          <ArrowUpRight
-            aria-hidden="true"
-            className="h-7 w-7 shrink-0 text-saffron transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 sm:h-8 sm:w-8"
-          />
-          <span className="sr-only">(opens in a new tab)</span>
-        </a>
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </div>
 
         <div className="mt-8 flex flex-col gap-3 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-2 text-sm text-white/60">

@@ -31,14 +31,14 @@ export const ownRoles: { title: L; body: L }[] = [
 ];
 
 export const father = {
-  name: { en: "Raj Brajraj Singh", hi: "राज ब्रजराज सिंह" } satisfies L,
+  name: { en: "Raja Brajraj Singh", hi: "राजा ब्रजराज सिंह" } satisfies L,
   relation: {
     en: "Father of Raja Raj Rajeshwar Singh",
     hi: "राजा राज राजेश्वर सिंह के पिता",
   } satisfies L,
   intro: {
-    en: "Raj Brajraj Singh twice represented the Srinagar assembly constituency as an MLA, first in 1974 on a Jana Sangh ticket and again in 1977 on a Janata Party ticket. He also helped establish the Jana Sangh, and later the BJP, in Kheri district.",
-    hi: "राज ब्रजराज सिंह दो बार श्रीनगर विधानसभा से विधायक रहे: पहली बार 1974 में जनसंघ से और दूसरी बार 1977 में जनता पार्टी से। जनसंघ और बाद में भाजपा को जनपद में स्थापित करने में भी उनका महत्वपूर्ण योगदान रहा।",
+    en: "Raja Brajraj Singh twice represented the Srinagar assembly constituency as an MLA, first in 1974 on a Jana Sangh ticket and again in 1977 on a Janata Party ticket. He also helped establish the Jana Sangh, and later the BJP, in Kheri district.",
+    hi: "राजा ब्रजराज सिंह दो बार श्रीनगर विधानसभा से विधायक रहे: पहली बार 1974 में जनसंघ से और दूसरी बार 1977 में जनता पार्टी से। जनसंघ और बाद में भाजपा को जनपद में स्थापित करने में भी उनका महत्वपूर्ण योगदान रहा।",
   } satisfies L,
   points: [
     {
@@ -83,10 +83,10 @@ export const milestones: { year: string; kind: MilestoneKind; title: L; body: L 
   {
     year: "1876",
     kind: "family",
-    title: { en: "Raghubar Singh is born", hi: "रघुबर सिंह का जन्म" },
+    title: { en: "Raja Raghubar Singh is born", hi: "राजा रघुबर सिंह का जन्म" },
     body: {
-      en: "Raghubar Singh, later Raja of Jhandi Raj, is born and raised at Jhandipurwa.",
-      hi: "आगे चलकर झंडी राज के राजा बने रघुबर सिंह का जन्म झंडीपुरवा में होता है।",
+      en: "Raja Raghubar Singh of Jhandi Raj is born and raised at Jhandipurwa.",
+      hi: "झंडी राज के राजा रघुबर सिंह का जन्म झंडीपुरवा में होता है और उनका पालन-पोषण वहीं होता है।",
     },
   },
   {
@@ -112,8 +112,8 @@ export const milestones: { year: string; kind: MilestoneKind; title: L; body: L 
     kind: "family",
     title: { en: "Loss of the elder son", hi: "बड़े पुत्र का निधन" },
     body: {
-      en: "Rajkumar Iqbal Bahadur Singh, Raghubar Singh's elder son, dies at the age of seventeen.",
-      hi: "रघुबर सिंह के बड़े पुत्र राजकुमार इक़बाल बहादुर सिंह का सत्रह वर्ष की आयु में निधन।",
+      en: "Rajkumar Iqbal Bahadur Singh, Raja Raghubar Singh's elder son, dies at the age of seventeen.",
+      hi: "राजा रघुबर सिंह के बड़े पुत्र राजकुमार इक़बाल बहादुर सिंह का सत्रह वर्ष की आयु में निधन।",
     },
   },
   {
@@ -128,7 +128,7 @@ export const milestones: { year: string; kind: MilestoneKind; title: L; body: L 
   {
     year: "1974",
     kind: "father",
-    title: { en: "Raj Brajraj Singh elected MLA", hi: "राज ब्रजराज सिंह विधायक निर्वाचित" },
+    title: { en: "Raja Brajraj Singh elected MLA", hi: "राजा ब्रजराज सिंह विधायक निर्वाचित" },
     body: {
       en: "Elected from the Srinagar assembly seat on a Jana Sangh ticket.",
       hi: "जनसंघ के टिकट पर श्रीनगर विधानसभा से निर्वाचित।",
@@ -139,8 +139,8 @@ export const milestones: { year: string; kind: MilestoneKind; title: L; body: L 
     kind: "father",
     title: { en: "The Emergency", hi: "आपातकाल" },
     body: {
-      en: "Raj Brajraj Singh takes part in the struggle against the Emergency and is jailed.",
-      hi: "राज ब्रजराज सिंह आपातकाल के विरुद्ध संघर्ष में शामिल होते हैं और जेल जाते हैं।",
+      en: "Raja Brajraj Singh takes part in the struggle against the Emergency and is jailed.",
+      hi: "राजा ब्रजराज सिंह आपातकाल के विरुद्ध संघर्ष में शामिल होते हैं और जेल जाते हैं।",
     },
   },
   {

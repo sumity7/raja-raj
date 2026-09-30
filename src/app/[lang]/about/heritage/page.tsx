@@ -131,7 +131,7 @@ export default async function HeritagePage({ params }: LangParams) {
         </div>
       </section>
 
-      {/* After Raghubar Singh, the fort, sources */}
+      {/* After Raja Raghubar Singh, the fort, sources */}
       <section aria-labelledby="after-title" className="section bg-sand/60">
         <div className="shell grid gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>

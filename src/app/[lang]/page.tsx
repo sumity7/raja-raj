@@ -9,6 +9,7 @@ import { KeyMeetings } from "@/components/KeyMeetings";
 import { JsonLd } from "@/components/JsonLd";
 import { PoliticalJourney } from "@/components/PoliticalJourney";
 import { PublicLife } from "@/components/PublicLife";
+import { SocialFeed } from "@/components/SocialFeed";
 import { SocialSection } from "@/components/SocialSection";
 import { Updates } from "@/components/Updates";
 import { getDict } from "@/content/ui";
@@ -47,6 +48,7 @@ export default async function HomePage({ params }: LangParams) {
       <PublicLife lang={lang} />
       <FeaturedMedia lang={lang} />
       <Updates lang={lang} />
+      <SocialFeed lang={lang} />
       <SocialSection lang={lang} />
       <ContactSection lang={lang} />
       <JsonLd data={webPageLd(lang, "", site.name[lang], d.hero.lead)} />

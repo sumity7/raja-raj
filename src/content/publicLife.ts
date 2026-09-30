@@ -24,8 +24,8 @@ export const regionalIssues: {
   id: "regional-issues",
   title: { en: "Regional issues", hi: "क्षेत्रीय मुद्दे" },
   intro: {
-    en: "The record below concerns his father, Raj Brajraj Singh, and shows the kind of local questions the family has taken up. Whenever the people of the region faced difficulty, the family's account says, he was ready to help.",
-    hi: "नीचे का विवरण उनके पिता राज ब्रजराज सिंह से जुड़ा है और दिखाता है कि परिवार ने किस प्रकार के स्थानीय प्रश्न उठाए। परिवार के विवरण के अनुसार, क्षेत्र की जनता पर जब भी कोई विपत्ति आई, वे उसकी सहायता के लिए तत्पर रहे।",
+    en: "The record below concerns his father, Raja Brajraj Singh, and shows the kind of local questions the family has taken up. Whenever the people of the region faced difficulty, the family's account says, he was ready to help.",
+    hi: "नीचे का विवरण उनके पिता राजा ब्रजराज सिंह से जुड़ा है और दिखाता है कि परिवार ने किस प्रकार के स्थानीय प्रश्न उठाए। परिवार के विवरण के अनुसार, क्षेत्र की जनता पर जब भी कोई विपत्ति आई, वे उसकी सहायता के लिए तत्पर रहे।",
   },
   issues: [
     {

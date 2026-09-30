@@ -28,8 +28,8 @@ export const origins: { title: L; body: L }[] = [
   {
     title: { en: "From Lalpur to Jhandi Raj", hi: "लालपुर से झंडी राज तक" },
     body: {
-      en: "Raja Lalta Singh, son of Raja Ranjeet Singh, lived at Lalpur, about three kilometres from Jhandi, where he held a mansion and lands. He founded the Jhandi Raj and Majgai estates. His three sons were Raj Debi Baksh Singh, Raj Raghubar Singh and Raj Mangal Singh, and Raghubar Singh became the Raja of Jhandi Raj.",
-      hi: "राजा रणजीत सिंह के पुत्र राजा लालता सिंह झंडी से लगभग तीन किलोमीटर दूर लालपुर में रहते थे, जहाँ उनकी कोठी और ज़मींदारी थी। उन्होंने झंडी राज और मजगई रियासतों की स्थापना की। उनके तीन पुत्र थे: राज देवी बख़्श सिंह, राज रघुबर सिंह और राज मंगल सिंह। इनमें रघुबर सिंह झंडी राज के राजा बने।",
+      en: "Raja Lalta Singh, son of Raja Ranjeet Singh, lived at Lalpur, about three kilometres from Jhandi, where he held a mansion and lands. He founded the Jhandi Raj and Majgai estates. His three sons were Raj Debi Baksh Singh, Raja Raghubar Singh and Raj Mangal Singh, and Raja Raghubar Singh became the Raja of Jhandi Raj.",
+      hi: "राजा रणजीत सिंह के पुत्र राजा लालता सिंह झंडी से लगभग तीन किलोमीटर दूर लालपुर में रहते थे, जहाँ उनकी कोठी और ज़मींदारी थी। उन्होंने झंडी राज और मजगई रियासतों की स्थापना की। उनके तीन पुत्र थे: राज देवी बख़्श सिंह, राजा रघुबर सिंह और राज मंगल सिंह। इनमें राजा रघुबर सिंह झंडी राज के राजा बने।",
     },
   },
 ];
@@ -43,8 +43,8 @@ export const raghubar = {
   } satisfies L,
   paragraphs: [
     {
-      en: "Raghubar Singh was born in 1876 and raised in the Rajput manner at Jhandipurwa. He learned Persian and Sanskrit at home and was later sent to the Government High School at Lakhimpur, where he studied English.",
-      hi: "रघुबर सिंह का जन्म 1876 में हुआ। उनका पालन-पोषण झंडीपुरवा में राजपूती परंपरा के अनुसार हुआ। घर पर उन्होंने फ़ारसी और संस्कृत सीखी और बाद में अंग्रेज़ी पढ़ने के लिए उन्हें लखीमपुर के सरकारी हाई स्कूल भेजा गया।",
+      en: "Raja Raghubar Singh was born in 1876 and raised in the Rajput manner at Jhandipurwa. He learned Persian and Sanskrit at home and was later sent to the Government High School at Lakhimpur, where he studied English.",
+      hi: "राजा रघुबर सिंह का जन्म 1876 में हुआ। उनका पालन-पोषण झंडीपुरवा में राजपूती परंपरा के अनुसार हुआ। घर पर उन्होंने फ़ारसी और संस्कृत सीखी और बाद में अंग्रेज़ी पढ़ने के लिए उन्हें लखीमपुर के सरकारी हाई स्कूल भेजा गया।",
     },
     {
       en: "Family affairs soon drew him away from study. A civil suit had been filed against the whole estate by Rani Parbati Kunwar, wife of Raja Debi Bakhsh Singh of Mallanpur, who claimed to be the heir of her father, Raj Milap Singh. The case went up to the Judicial Committee of the Privy Council and was finally decided in his favour.",

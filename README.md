@@ -11,7 +11,7 @@ npm run dev      # http://localhost:3000
 npm run build && npm start
 ```
 
-Copy `.env.example` to `.env.local` and fill it in. Without the Resend variables the enquiry form
+Copy `.env.example` to `.env.local` and fill it in. Without the Gmail variables the enquiry form
 only logs in development and returns an error in production.
 
 ## Where content lives

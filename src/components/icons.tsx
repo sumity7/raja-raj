@@ -25,9 +25,18 @@ export function InstagramIcon({ className }: IconProps) {
   );
 }
 
+export function YoutubeIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
+      <path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2C2 8.78 2 12 2 12s0 3.22.4 4.8a2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77C22 15.22 22 12 22 12s0-3.22-.4-4.8zM10 15V9l5.2 3L10 15z" />
+    </svg>
+  );
+}
+
 export const socialIcons = {
   facebook: FacebookIcon,
   instagram: InstagramIcon,
+  youtube: YoutubeIcon,
 } as const;
 
 /** Plain speech bubble with two lines of text; no sparkle or logo. */

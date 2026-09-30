@@ -25,7 +25,18 @@ export const site = {
       href: "https://www.instagram.com/rajarajrajeshwarsingh/",
       handle: "@rajarajrajeshwarsingh",
     },
+    {
+      id: "youtube",
+      label: "YouTube",
+      href: "https://www.youtube.com/@RajaRajRajeshwarSingh",
+      handle: "@RajaRajRajeshwarSingh",
+    },
   ],
+  /** Used by the "Latest from social media" section. */
+  feeds: {
+    facebookPage: "https://www.facebook.com/krRRSinghbjp/",
+    youtubeChannelId: "UCu7nmJaNLq1msJzRRzLBheQ",
+  },
   praib: {
     name: "PRAIB Advisors LLP",
     href: "https://praibadvisors.com/",

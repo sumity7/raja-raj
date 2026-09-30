@@ -75,8 +75,8 @@ export const knowledge = (): KnowledgeEntry[] => [
     id: "father",
     keywords: ["father", "brajraj", "mla", "emergency", "jana sangh", "jansangh", "janata", "srinagar", "पिता", "ब्रजराज", "विधायक", "आपातकाल", "जनसंघ", "श्रीनगर"],
     answer: {
-      en: "His father, Raj Brajraj Singh, was twice an MLA from the Srinagar assembly seat, in 1974 on a Jana Sangh ticket and in 1977 on a Janata Party ticket. He was jailed during the Emergency of 1975 and helped establish the Jana Sangh and later the BJP in the district.",
-      hi: "उनके पिता राज ब्रजराज सिंह श्रीनगर विधानसभा से दो बार विधायक रहे: 1974 में जनसंघ से और 1977 में जनता पार्टी से। 1975 के आपातकाल में वे जेल गए और जनपद में जनसंघ तथा बाद में भाजपा को स्थापित करने में उनका योगदान रहा।",
+      en: "His father, Raja Brajraj Singh, was twice an MLA from the Srinagar assembly seat, in 1974 on a Jana Sangh ticket and in 1977 on a Janata Party ticket. He was jailed during the Emergency of 1975 and helped establish the Jana Sangh and later the BJP in the district.",
+      hi: "उनके पिता राजा ब्रजराज सिंह श्रीनगर विधानसभा से दो बार विधायक रहे: 1974 में जनसंघ से और 1977 में जनता पार्टी से। 1975 के आपातकाल में वे जेल गए और जनपद में जनसंघ तथा बाद में भाजपा को स्थापित करने में उनका योगदान रहा।",
     },
     link: { href: "/about#journey", label: { en: "His father's record", hi: "पिता का अभिलेख" } },
   },

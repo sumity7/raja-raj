@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
-import {
-  enquiryTypes,
-  normaliseMobile,
-  validateEnquiry,
-  type Enquiry,
-} from "@/lib/contact";
+import { enquiryTypes, validateEnquiry, type Enquiry } from "@/lib/contact";
+import { mailConfig, sendEnquiry } from "@/lib/mail";
+
+export const runtime = "nodejs";
 
 /**
- * Receives an enquiry and emails it to the configured recipient through Resend's HTTP API.
- * Configure RESEND_API_KEY, CONTACT_TO_EMAIL and CONTACT_FROM_EMAIL in the environment.
+ * Receives an enquiry and emails it (Gmail + App Password, see lib/mail.ts).
  * In development, when nothing is configured, the enquiry is logged instead of sent.
  */
 
@@ -23,9 +20,6 @@ function rateLimited(ip: string) {
   hits.set(ip, recent);
   return recent.length > MAX_PER_WINDOW;
 }
-
-const escapeHtml = (s: string) =>
-  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
@@ -61,45 +55,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
-
-  if (!apiKey || !to || !from) {
+  if (!mailConfig()) {
     if (process.env.NODE_ENV !== "production") {
       console.info("[contact] email not configured; enquiry logged only:", enquiry);
       return NextResponse.json({ ok: true, dev: true });
     }
-    console.error("[contact] RESEND_API_KEY, CONTACT_TO_EMAIL or CONTACT_FROM_EMAIL is missing");
+    console.error("[contact] GMAIL_USER, GMAIL_APP_PASSWORD or CONTACT_TO_EMAIL is missing");
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
-  const mobile = normaliseMobile(enquiry.mobile);
-  const html = `
-    <h2>New website enquiry</h2>
-    <table cellpadding="6">
-      <tr><td><b>Type</b></td><td>${escapeHtml(enquiry.type)}</td></tr>
-      <tr><td><b>Name</b></td><td>${escapeHtml(enquiry.name)}</td></tr>
-      <tr><td><b>Mobile</b></td><td>${escapeHtml(mobile)}</td></tr>
-      <tr><td><b>Email</b></td><td>${escapeHtml(enquiry.email || "-")}</td></tr>
-      <tr><td><b>Subject</b></td><td>${escapeHtml(enquiry.subject)}</td></tr>
-    </table>
-    <p style="white-space:pre-wrap">${escapeHtml(enquiry.message)}</p>`;
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      subject: `[Website enquiry] ${enquiry.subject}`,
-      html,
-      ...(enquiry.email.trim() ? { reply_to: enquiry.email.trim() } : {}),
-    }),
-  });
-
-  if (!response.ok) {
-    console.error("[contact] Resend error", response.status, await response.text());
+  try {
+    await sendEnquiry(enquiry);
+  } catch (error) {
+    // Log the reason for the owner; never send details back to the visitor.
+    console.error("[contact] send failed:", error instanceof Error ? error.message : error);
     return NextResponse.json({ error: "send_failed" }, { status: 502 });
   }
   return NextResponse.json({ ok: true });
