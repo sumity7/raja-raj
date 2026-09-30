@@ -25,6 +25,9 @@ export function NavbarClient({ lang, items, labels, logo, switcher, mobileSwitch
   const [drawer, setDrawer] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [drawerTop, setDrawerTop] = useState(72);
+  const [seenPath, setSeenPath] = useState(pathname);
+  const headerRef = useRef<HTMLElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isActive = useCallback(
@@ -45,6 +48,12 @@ export function NavbarClient({ lang, items, labels, logo, switcher, mobileSwitch
     cancelClose();
     timer.current = setTimeout(() => setOpen(null), CLOSE_DELAY);
   };
+
+  if (seenPath !== pathname) {
+    setSeenPath(pathname);
+    setDrawer(false);
+    setOpen(null);
+  }
 
   const closeAll = () => {
     setOpen(null);
@@ -71,16 +80,50 @@ export function NavbarClient({ lang, items, labels, logo, switcher, mobileSwitch
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  // While the mobile drawer is open the page behind it must not move.
+  //  - <html> is set to overflow: hidden (the document scroller is <html>, which is what iOS
+  //    Safari and Android Chrome scroll), so the scroll position is simply frozen and comes back
+  //    exactly as it was. Only <html> is touched: giving <body> its own overflow as well would
+  //    turn it into a separate scroll box and make the sticky header and page disappear.
+  //  - overscroll-behavior stops a gesture at the end of the drawer from chaining to the page.
+  //  - Older iOS ignores overflow: hidden, so touch moves that would scroll the page (outside the
+  //    drawer, or inside a drawer that does not overflow) are cancelled. Nothing else is cancelled.
   useEffect(() => {
-    document.body.style.overflow = drawer ? "hidden" : "";
+    if (!drawer) return;
+    const html = document.documentElement;
+    const prev = { overflow: html.style.overflow, overscroll: html.style.overscrollBehavior };
+    html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+
+    const bottom = headerRef.current?.getBoundingClientRect().bottom;
+    if (bottom) setDrawerTop(Math.round(bottom));
+
+    const onTouchMove = (e: TouchEvent) => {
+      const menu = document.getElementById("mobile-menu");
+      const inside = menu?.contains(e.target as Node);
+      if (!inside || (menu && menu.scrollHeight <= menu.clientHeight + 1)) {
+        if (e.cancelable) e.preventDefault();
+      }
+    };
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    // The drawer is a phone/tablet feature: leaving that width closes it.
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onWide = () => mq.matches && setDrawer(false);
+    mq.addEventListener("change", onWide);
+
     return () => {
-      document.body.style.overflow = "";
+      document.removeEventListener("touchmove", onTouchMove);
+      mq.removeEventListener("change", onWide);
+      html.style.overflow = prev.overflow;
+      html.style.overscrollBehavior = prev.overscroll;
     };
   }, [drawer]);
 
   return (
     <LazyMotion features={domAnimation}>
       <header
+        ref={headerRef}
         data-scrolled={scrolled}
         className={`group/header sticky top-0 z-50 border-b border-line bg-white transition-shadow duration-300 ${
           scrolled ? "shadow-[0_10px_30px_-18px_rgba(24,20,18,0.35)]" : ""
@@ -225,7 +268,8 @@ export function NavbarClient({ lang, items, labels, logo, switcher, mobileSwitch
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto bg-paper lg:hidden"
+              style={{ top: drawerTop, height: `calc(100dvh - ${drawerTop}px)` }}
+              className="fixed inset-x-0 z-40 overflow-y-auto overscroll-contain bg-paper [-webkit-overflow-scrolling:touch] [touch-action:pan-y] lg:hidden"
             >
               <nav aria-label="Mobile" className="shell py-4">
                 <ul className="divide-y divide-line border-b border-line">
