@@ -249,33 +249,18 @@ export const updates: Update[] = [
     ],
     image: {
       src: "/images/updates/khairtiya-outreach-1.webp",
-      width: 1280,
-      height: 963,
+      width: 1646,
+      height: 956,
       alt: {
-        en: "A group discussion under a thatched-roof, open-sided shelter during the public outreach in Khairtiya",
-        hi: "खैरटिया में जनसंपर्क के दौरान फूस की छत वाले खुले ढाँचे के नीचे समूह चर्चा",
+        en: "Party workers and local residents seated together on a veranda during the interaction in Khairtiya",
+        hi: "खैरटिया में संवाद के दौरान बरामदे में एक साथ बैठे कार्यकर्ता और स्थानीय लोग",
       },
       caption: {
-        en: "Discussion under a thatched-roof shelter, Khairtiya.",
-        hi: "खैरटिया में फूस की छत वाले ढाँचे के नीचे संवाद।",
+        en: "Interaction with party workers and local residents, Khairtiya.",
+        hi: "खैरटिया में कार्यकर्ताओं और स्थानीय लोगों के साथ संवाद।",
       },
       position: "50% 40%",
     },
-    gallery: [
-      {
-        src: "/images/updates/khairtiya-outreach-2.webp",
-        width: 1442,
-        height: 838,
-        alt: {
-          en: "Party workers and local residents seated together on a veranda during the interaction in Khairtiya",
-          hi: "खैरटिया में संवाद के दौरान बरामदे में एक साथ बैठे कार्यकर्ता और स्थानीय लोग",
-        },
-        caption: {
-          en: "Interaction with party workers and local residents, Khairtiya.",
-          hi: "खैरटिया में कार्यकर्ताओं और स्थानीय लोगों के साथ संवाद।",
-        },
-      },
-    ],
   },
 ];
 

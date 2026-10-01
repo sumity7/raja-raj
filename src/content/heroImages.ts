@@ -23,9 +23,9 @@ export const heroImages = {
     },
   },
   publicLife: {
-    src: "/images/updates/khairtiya-outreach-2.webp",
-    width: 1442,
-    height: 838,
+    src: "/images/updates/khairtiya-outreach-1.webp",
+    width: 1646,
+    height: 956,
     alt: {
       en: "Raja Raj Rajeshwar Singh in discussion with local residents at a public gathering in Khairtiya",
       hi: "खैरटिया में एक जनसंवाद के दौरान स्थानीय लोगों से चर्चा करते हुए राजा राज राजेश्वर सिंह",
