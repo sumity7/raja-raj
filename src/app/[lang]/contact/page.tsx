@@ -23,7 +23,7 @@ export default async function ContactPage({ params }: LangParams) {
         path={PATH}
         title={d.contact.heroTitle}
         lead={d.contact.lead}
-        visual={<HeroContactPanel lang={lang} />}
+        visual={<HeroContactPanel />}
         description={d.contact.description}
         crumbs={[{ name: d.contact.title, path: PATH }]}
       />

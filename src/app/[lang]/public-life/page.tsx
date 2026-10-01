@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { HeroPhoto, PageHero } from "@/components/PageHero";
+import { MediaHero } from "@/components/PageHero";
 import { heroImages } from "@/content/heroImages";
-import { site } from "@/lib/site";
 import { Reveal } from "@/components/Reveal";
 import { UpdateCard } from "@/components/UpdateCard";
 import { communityFaith, publicConnect, publicWork, regionalIssues } from "@/content/publicLife";
@@ -38,15 +37,16 @@ export default async function PublicLifePage({ params }: LangParams) {
 
   return (
     <>
-      <PageHero
+      <MediaHero
         lang={lang}
-        meta={site.place[lang]}
-        visual={<HeroPhoto image={heroImages.publicLife} lang={lang} />}
         path={PATH}
+        crumbs={[{ name: p.title, path: PATH }]}
         title={p.title}
         lead={p.lead}
+        body={tr(publicWork.body[0], lang)}
         description={p.description}
-        crumbs={[{ name: p.title, path: PATH }]}
+        image={heroImages.publicLife}
+        links={index.map((i) => ({ label: tr(i.title, lang), href: `${PATH}#${i.id}` }))}
       />
 
       <div className="section shell grid gap-12 lg:grid-cols-12 lg:gap-20">

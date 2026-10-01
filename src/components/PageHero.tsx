@@ -121,14 +121,11 @@ export function HeroPortrait({ image, lang }: { image: HeroImage; lang: Lang }) 
 }
 
 /** Where to find the person, using details already on the site. */
-export function HeroContactPanel({ lang }: { lang: Lang }) {
-  const d = getDict(lang);
+export function HeroContactPanel() {
   return (
     <Framed>
       <div className="bg-white p-7 sm:p-8">
-        <p className="label">{d.contact.region}</p>
-        <p className="mt-2 text-2xl leading-snug font-display">{site.place[lang]}</p>
-        <ul className="mt-6 divide-y divide-line border-t border-line">
+        <ul className="divide-y divide-line">
           {site.socials.map((s) => {
             const Icon = socialIcons[s.id as keyof typeof socialIcons];
             return (

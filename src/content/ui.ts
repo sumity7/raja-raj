@@ -147,7 +147,6 @@ const en = {
     description:
       "Send an enquiry to Raja Raj Rajeshwar Singh: general enquiries, media, public programmes and meeting requests.",
     social: "Social media",
-    region: "Region",
     heroTitle: "Get in touch",
     lead: "Connect regarding public matters, community concerns and enquiries.",
     note: "Enquiries are sent by email.",
@@ -375,7 +374,6 @@ const hi: Dict = {
     description:
       "राजा राज राजेश्वर सिंह को पूछताछ भेजें: सामान्य पूछताछ, मीडिया, सार्वजनिक कार्यक्रम और भेंट का अनुरोध।",
     social: "सोशल मीडिया",
-    region: "क्षेत्र",
     heroTitle: "संपर्क करें",
     lead: "सार्वजनिक विषयों, स्थानीय चिंताओं और पूछताछ के लिए संपर्क करें।",
     note: "पूछताछ ईमेल द्वारा भेजी जाती है।",
