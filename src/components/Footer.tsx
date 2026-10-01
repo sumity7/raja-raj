@@ -59,7 +59,7 @@ export function Footer({ lang }: { lang: Lang }) {
                       <Icon className="h-[18px] w-[18px]" />
                       <span>
                         {s.label}
-                        <span className="ml-2 text-white/50 group-hover:text-saffron/80">
+                        <span className="ml-2 text-white/70 group-hover:text-saffron">
                           {s.handle}
                         </span>
                       </span>
@@ -70,7 +70,7 @@ export function Footer({ lang }: { lang: Lang }) {
               })}
             </ul>
             <div className="mt-8 flex items-center gap-4">
-              <span className="text-sm text-white/50">{d.language}</span>
+              <span className="text-sm text-white/70">{d.language}</span>
               <LanguageSwitcher lang={lang} label={d.switchTo} variant="dark" />
             </div>
           </div>
@@ -85,7 +85,7 @@ export function Footer({ lang }: { lang: Lang }) {
             className="group flex w-full max-w-md items-center justify-between gap-4 rounded-full border border-white/25 bg-white/[0.03] py-3 pl-6 pr-3 transition-[border-color,background-color] duration-300 hover:border-saffron/70 hover:bg-white/[0.07] sm:w-auto sm:min-w-[24rem] sm:gap-10 sm:pl-9"
           >
             <span className="min-w-0">
-              <span className="block text-[0.8125rem] font-semibold uppercase tracked text-white/60">
+              <span className="block text-[0.8125rem] font-semibold uppercase tracked text-white/75">
                 {d.footer.creditLabel}
               </span>
               <span className="mt-1 block whitespace-nowrap text-[1.1rem] font-bold leading-tight text-white min-[380px]:text-xl sm:text-[1.6rem]">
@@ -103,7 +103,7 @@ export function Footer({ lang }: { lang: Lang }) {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-2 text-sm text-white/60">
+          <div className="space-y-2 text-sm text-white/75">
             <p>
               © {year} {site.name[lang]}. {d.footer.rights}
             </p>

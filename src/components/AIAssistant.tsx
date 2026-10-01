@@ -32,6 +32,16 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(1);
+  const [scrolled, setScrolled] = useState(false);
+  const [near, setNear] = useState(false);
+
+  // Past the first screen the button shrinks to its icon so it stops covering the page text.
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 240);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -211,12 +221,16 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
+          onMouseEnter={() => setNear(true)}
+          onMouseLeave={() => setNear(false)}
+          onFocus={() => setNear(true)}
+          onBlur={() => setNear(false)}
           aria-expanded={open}
           aria-label={open ? d.assistant.close : d.assistant.open}
-          className="flex min-h-12 min-w-12 items-center justify-center gap-2.5 bg-ink px-3.5 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(28,26,23,0.6)] ring-1 ring-white/25 transition-colors hover:bg-saffron-deep sm:px-5"
+          className="flex min-h-12 min-w-12 items-center justify-center bg-ink px-3.5 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(28,26,23,0.6)] ring-1 ring-white/25 transition-colors hover:bg-saffron-deep sm:px-5"
         >
-          <ChatIcon className="h-[1.15rem] w-[1.15rem] text-saffron" />
-          <span className="hidden sm:inline">{d.assistant.button}</span>
+          <ChatIcon className="h-[1.15rem] w-[1.15rem] shrink-0 text-saffron sm:mr-2.5" />
+          <span className={`hidden overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 sm:inline ${scrolled && !near && !open ? "max-w-0 opacity-0" : "max-w-[12rem] opacity-100"}`}>{d.assistant.button}</span>
         </button>
       </div>
     </LazyMotion>

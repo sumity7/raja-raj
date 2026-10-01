@@ -38,7 +38,7 @@ export function LanguageSwitcher({
               hrefLang={l}
               lang={l}
               aria-current={active ? "true" : undefined}
-              className={`px-2.5 py-2.5 transition-colors ${
+              className={`flex min-h-11 items-center px-3 transition-colors ${
                 active
                   ? variant === "dark"
                     ? "text-saffron"

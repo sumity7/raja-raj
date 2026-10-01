@@ -322,6 +322,14 @@ h4 {
 .portrait-in {
   animation: portrait-in 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
 }
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 .page-in {
   animation: fade 0.35s ease-out both;
 }

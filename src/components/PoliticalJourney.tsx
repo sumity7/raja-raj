@@ -47,6 +47,12 @@ export function PoliticalJourney({
                 </li>
               ))}
             </ul>
+            {preview && (
+              <Link href={localePath(lang, "/about#journey")} className="link-arrow mt-8">
+                {d.sections.readJourney}
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            )}
           </Reveal>
 
           {/* His father's record */}
@@ -69,15 +75,6 @@ export function PoliticalJourney({
             </div>
           </Reveal>
         </div>
-
-        {preview && (
-          <Reveal className="mt-12">
-            <Link href={localePath(lang, "/about#journey")} className="link-arrow">
-              {d.sections.readJourney}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
-            </Link>
-          </Reveal>
-        )}
       </div>
     </section>
   );
