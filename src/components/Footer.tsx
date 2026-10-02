@@ -20,7 +20,7 @@ export function Footer({ lang }: { lang: Lang }) {
   return (
     <footer className="on-dark bg-ink text-white/80">
       <div className="tricolour" aria-hidden="true" />
-      <div className="shell pb-28 pt-16 sm:pb-24 lg:pt-20">
+      <div className="shell pb-6 pt-12 lg:pt-14">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="font-display text-3xl font-bold leading-tight text-white">
@@ -76,7 +76,7 @@ export function Footer({ lang }: { lang: Lang }) {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between sm:pr-16 xl:pr-24">
           <p className="text-sm text-white/75">
             © {year} {site.name[lang]}. {d.footer.rights}
           </p>

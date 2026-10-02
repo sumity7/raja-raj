@@ -70,7 +70,7 @@ export default async function UpdatePage({ params }: Props) {
       <article className="section shell">
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           {/* Photographs (and video) */}
-          <div className="space-y-10 lg:col-span-7">
+          <div className="space-y-8 lg:col-span-7">
             {update.image && (
               <figure>
                 <Image

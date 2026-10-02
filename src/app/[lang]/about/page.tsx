@@ -66,7 +66,7 @@ export default async function AboutPage({ params }: LangParams) {
       >
         <div className="lg:col-span-8">
           {biography.map((section, i) => (
-            <Reveal key={section.id} className={i > 0 ? "mt-14" : ""}>
+            <Reveal key={section.id} className={i > 0 ? "mt-10" : ""}>
               <section id={section.id} aria-labelledby={`${section.id}-title`}>
                 <h2 id={`${section.id}-title`} className="h-section text-[clamp(1.75rem,3.4vw,2.5rem)]">
                   {tr(section.title, lang)}
@@ -102,7 +102,7 @@ export default async function AboutPage({ params }: LangParams) {
       <section id="milestones" aria-labelledby="milestones-title" className="section bg-paper">
         <div className="shell">
           <SectionHeading id="milestones-title" title={m.title} lead={m.lead} />
-          <div className="mt-12">
+          <div className="mt-8">
             <HeritageTimeline
               entries={entries}
               copy={{ all: m.all, family: m.family, father: m.father, filter: m.filter }}
@@ -112,7 +112,7 @@ export default async function AboutPage({ params }: LangParams) {
       </section>
 
       {/* Where to go next */}
-      <section aria-label={d.biography.alsoSee} className="border-t border-line bg-white py-14">
+      <section aria-label={d.biography.alsoSee} className="border-t border-line bg-white py-10">
         <div className="shell flex flex-wrap gap-x-12 gap-y-4">
           {[
             { href: "/about/heritage", label: d.nav.heritage },

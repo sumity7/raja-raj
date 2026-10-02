@@ -32,7 +32,7 @@ export function LegalPage({
       <div className="section shell">
         <div className="max-w-3xl divide-y divide-line border-y border-line">
           {content.sections.map((s) => (
-            <section key={s.title.en} className="grid gap-2 py-7 sm:grid-cols-[18rem_1fr] sm:gap-10">
+            <section key={s.title.en} className="grid gap-2 py-5 sm:grid-cols-[18rem_1fr] sm:gap-10">
               <h2 className="h-card">{tr(s.title, lang)}</h2>
               <p className="text-ink-2">{tr(s.body, lang)}</p>
             </section>

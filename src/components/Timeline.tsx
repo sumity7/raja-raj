@@ -19,7 +19,7 @@ export function Timeline({ children, label }: { children: ReactNode; label?: str
 export function TimelineItem({
   last = false,
   tone = "saffron",
-  className = "pb-10",
+  className = "pb-8",
   children,
 }: {
   last?: boolean;

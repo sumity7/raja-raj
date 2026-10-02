@@ -56,7 +56,7 @@ export function Heritage({ lang }: { lang: Lang }) {
 
         <ol
           aria-label={lang === "hi" ? "प्रमुख वर्ष" : "Key years"}
-          className="mt-14 grid grid-cols-2 border-t border-white/20 lg:grid-cols-4"
+          className="mt-10 grid grid-cols-2 border-t border-white/20 lg:grid-cols-4"
         >
           {keyYears.map((m, i) => (
             <Reveal

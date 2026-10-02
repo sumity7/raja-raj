@@ -29,7 +29,7 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
           <SectionHeading id="feed-title" title={d.feed.title} lead={d.feed.lead} />
         </Reveal>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-14">
+        <div className="mt-8 grid gap-10 lg:mt-10 lg:grid-cols-12 lg:gap-12">
           {/* Facebook */}
           <Reveal className="lg:col-span-5">
             <div className="mb-4 flex items-center justify-between gap-4">
@@ -52,7 +52,6 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                 loading={d.feed.facebookLoading}
               />
             </div>
-            <p className="mt-3 text-sm text-muted">{d.feed.facebookNote}</p>
           </Reveal>
 
           {/* YouTube */}

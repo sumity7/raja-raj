@@ -26,7 +26,7 @@ export function PoliticalJourney({
       className="section bg-sand/60"
     >
       <div className="shell">
-        <Reveal className="mb-12">
+        <Reveal className="mb-8">
           <SectionHeading
             id="journey-title"
             title={d.sections.journey}

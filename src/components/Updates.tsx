@@ -29,7 +29,7 @@ export function Updates({ lang }: { lang: Lang }) {
         </Reveal>
 
         {lead && (
-          <Reveal className="mt-10">
+          <Reveal className="mt-8">
             <UpdateCard
               update={lead}
               lang={lang}

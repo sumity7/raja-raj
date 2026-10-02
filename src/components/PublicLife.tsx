@@ -32,7 +32,7 @@ export function PublicLife({ lang }: { lang: Lang }) {
         </Reveal>
 
         <ul
-          className={`mt-12 grid gap-x-12 gap-y-10 border-t border-line pt-9 ${
+          className={`mt-8 grid gap-x-12 gap-y-8 border-t border-line pt-7 lg:mt-10 ${
             items.length > 3 ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
           }`}
         >

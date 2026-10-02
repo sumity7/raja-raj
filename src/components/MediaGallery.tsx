@@ -80,7 +80,7 @@ export function MediaGallery({ lang, items, categories, copy }: Props) {
   return (
     <LazyMotion features={domAnimation}>
       {categories.length > 1 && (
-        <div role="group" aria-label={copy.filter} className="mb-10 flex flex-wrap gap-2">
+        <div role="group" aria-label={copy.filter} className="mb-8 flex flex-wrap gap-2">
           {[{ id: "all" as const, label: copy.all }, ...categories].map((c) => (
             <button
               key={c.id}
@@ -100,7 +100,7 @@ export function MediaGallery({ lang, items, categories, copy }: Props) {
       )}
 
       {videos.length > 0 && (
-        <section id="videos" aria-label={copy.videos} className={visible.length > 0 ? "mb-16" : ""}>
+        <section id="videos" aria-label={copy.videos} className={visible.length > 0 ? "mb-10" : ""}>
           {visible.length > 0 && <h2 className="label mb-8">{copy.videos}</h2>}
           <div className={videos.length > 1 ? "grid gap-12 lg:grid-cols-2" : ""}>
             {videos.map((v) => (

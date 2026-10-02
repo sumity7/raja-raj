@@ -27,7 +27,7 @@ export function FeaturedMedia({ lang }: { lang: Lang }) {
           </Link>
         </Reveal>
 
-        <Reveal className="mt-10" delay={0.08}>
+        <Reveal className="mt-8" delay={0.08}>
           <VideoCard
             item={item}
             lang={lang}

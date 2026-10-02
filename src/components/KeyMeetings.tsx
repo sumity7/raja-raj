@@ -59,7 +59,7 @@ export function KeyMeetings({ lang }: { lang: Lang }) {
           </Link>
         </Reveal>
 
-        <div className="mt-12 space-y-16 lg:space-y-20">
+        <div className="mt-8 space-y-10 lg:mt-10 lg:space-y-14">
           {stories.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.06}>
               {story(item, i === 0)}

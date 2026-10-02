@@ -51,7 +51,7 @@ export function PageHero({
     <header className="border-b border-line bg-sand/50">
       <div className="shell pb-10 pt-7 lg:pb-14">
         <Breadcrumbs lang={lang} crumbs={all} label={d.breadcrumbs} />
-        <div className="mt-8 grid items-center gap-10 lg:min-h-[22rem] lg:grid-cols-12 lg:gap-14">
+        <div className="mt-6 grid items-center gap-8 lg:min-h-[20rem] lg:grid-cols-12 lg:gap-12">
           <div className={visual ? "min-w-0 lg:col-span-7" : "min-w-0 lg:col-span-12"}>
             {eyebrow && <p className="text-sm font-semibold text-saffron-deep">{eyebrow}</p>}
             <h1 className={`h-page max-w-3xl ${eyebrow ? "mt-2" : ""}`}>{title}</h1>
@@ -171,7 +171,7 @@ export function MediaHero({
   crumbs: Crumb[];
   title: string;
   lead: string;
-  body: string;
+  body?: string;
   description: string;
   image: HeroImage;
   links: { label: string; href: string }[];
@@ -200,7 +200,7 @@ export function MediaHero({
           <div className="min-w-0 lg:col-span-5">
             <h1 className="h-page">{title}</h1>
             <p className="lead mt-4 text-ink-2">{lead}</p>
-            <p className="mt-4 leading-[1.8] text-ink-2 [text-wrap:pretty]">{body}</p>
+            {body && <p className="mt-4 leading-[1.8] text-ink-2 [text-wrap:pretty]">{body}</p>}
             <nav aria-label={title} className="mt-6 flex flex-wrap gap-3">
               {links.map((l) => (
                 <Link key={l.href} href={localePath(lang, l.href)} className="btn btn-ghost">

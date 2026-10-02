@@ -186,7 +186,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                 active ? "delay-300 motion-reduce:delay-0" : ""
               } ${
                 wide
-                  ? "justify-end lg:bottom-[calc(3rem-4.5%)] lg:right-0 lg:h-[calc(100%-4.5rem+20%)] lg:max-h-[60rem] lg:w-[62%] 2xl:right-[max(0px,calc((100vw-90rem)/2-4rem))]"
+                  ? "justify-end lg:bottom-[calc(3rem-4.5%)] lg:right-0 lg:h-[calc(100%-4.5rem+20%)] lg:max-h-[60rem] lg:w-[62%] lg:max-w-[calc(min(max(100svh-7.6rem,32rem),62rem)*1.32)]"
                   : `justify-center ${s.id === "profile" ? "lg:bottom-[calc(3rem-30%)]" : "lg:bottom-[calc(3rem-20%)]"} lg:h-[calc(100%-4rem+20%)] lg:max-h-[60rem] lg:w-[38%] lg:justify-end lg:right-[2%] 2xl:right-[calc((100vw-90rem)/2+7rem)]`
               }`}
             >
@@ -198,7 +198,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                   height={s.person.height}
                   loading="lazy"
                   sizes="(min-width: 1024px) 62vw, 100vw"
-                  className="h-full w-full select-none object-cover object-[52%_bottom] lg:object-contain lg:object-right-bottom"
+                  className="h-full w-full select-none object-cover object-[52%_bottom] lg:object-contain lg:object-right-bottom lg:[mask-image:linear-gradient(to_right,transparent,black_12%)]"
                 />
               ) : (
                 <div className="relative h-full max-w-full" style={{ aspectRatio: `${s.person.width} / ${s.person.height}` }}>

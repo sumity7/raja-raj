@@ -26,7 +26,7 @@ export function HeritageTimeline({
 
   return (
     <div>
-      <div role="group" aria-label={copy.filter} className="mb-12 flex flex-wrap gap-2">
+      <div role="group" aria-label={copy.filter} className="mb-8 flex flex-wrap gap-2">
         {options.map((o) => (
           <button
             key={o.id}
@@ -50,7 +50,7 @@ export function HeritageTimeline({
             key={`${entry.year}-${entry.title}`}
             last={i === shown.length - 1}
             tone={entry.kind === "father" ? "ink" : "saffron"}
-            className="pb-12"
+            className="pb-8 sm:pb-10"
           >
             <div className="grid gap-2 sm:grid-cols-[10rem_1fr] sm:gap-8">
               <p className="font-display text-3xl font-bold leading-tight text-saffron-deep">{entry.year}</p>

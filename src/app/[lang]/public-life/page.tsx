@@ -43,14 +43,14 @@ export default async function PublicLifePage({ params }: LangParams) {
         crumbs={[{ name: p.title, path: PATH }]}
         title={p.title}
         lead={p.lead}
-        body={tr(publicWork.body[0], lang)}
         description={p.description}
         image={heroImages.publicLife}
         links={index.map((i) => ({ label: tr(i.title, lang), href: `${PATH}#${i.id}` }))}
       />
 
-      <div className="section shell grid gap-12 lg:grid-cols-12 lg:gap-20">
-        <nav aria-label={p.onIndex} className="lg:col-span-3">
+      <div className="section shell grid gap-8 lg:grid-cols-12 lg:gap-16">
+        {/* On phones the hero buttons above already link to every section, so this list is desktop only. */}
+        <nav aria-label={p.onIndex} className="hidden lg:col-span-3 lg:block">
           <div className="border-t border-line lg:sticky lg:top-32">
             <p className="label pt-4">{p.onIndex}</p>
             <ul className="mt-3 space-y-3">
@@ -65,7 +65,7 @@ export default async function PublicLifePage({ params }: LangParams) {
           </div>
         </nav>
 
-        <div className="space-y-20 lg:col-span-9">
+        <div className="space-y-12 lg:col-span-9 lg:space-y-16">
           <Reveal>
             <section id={publicWork.id} aria-labelledby="pw-title">
               <h2 id="pw-title" className="h-section text-[clamp(1.75rem,3.4vw,2.5rem)]">
@@ -87,7 +87,7 @@ export default async function PublicLifePage({ params }: LangParams) {
               <p className="mt-6 max-w-2xl text-ink-2">{tr(regionalIssues.intro, lang)}</p>
               <ul className="mt-8 divide-y divide-line border-y border-line">
                 {regionalIssues.issues.map((issue) => (
-                  <li key={issue.title.en} className="grid gap-2 py-7 sm:grid-cols-[18rem_1fr] sm:gap-10">
+                  <li key={issue.title.en} className="grid gap-2 py-5 sm:grid-cols-[18rem_1fr] sm:gap-10">
                     <h3 className="h-card">{tr(issue.title, lang)}</h3>
                     <p className="text-ink-2">{tr(issue.body, lang)}</p>
                   </li>
@@ -116,7 +116,7 @@ export default async function PublicLifePage({ params }: LangParams) {
                   {tr(updateCategories["public-connect"], lang)}
                 </h2>
                 <p className="mt-6 max-w-2xl text-ink-2">{tr(publicConnect.intro, lang)}</p>
-                <div className="mt-10 grid gap-10">
+                <div className="mt-8 grid gap-8">
                   {connectUpdates.map((u) => (
                     <UpdateCard
                       key={u.slug}

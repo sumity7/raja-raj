@@ -120,11 +120,16 @@ h4 {
 }
 
 .section {
-  padding-block: 4.5rem;
+  padding-block: 3rem;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-block: 4rem;
+  }
 }
 @media (min-width: 1024px) {
   .section {
-    padding-block: 7.5rem;
+    padding-block: 5rem;
   }
 }
 

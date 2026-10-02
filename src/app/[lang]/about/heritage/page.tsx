@@ -52,7 +52,7 @@ export default async function HeritagePage({ params }: LangParams) {
               {lang === "hi" ? "चौहान वंश से खीरी तक" : "From the Chauhans to Kheri"}
             </h2>
           </Reveal>
-          <ol className="mt-10 grid border-t border-line lg:grid-cols-3">
+          <ol className="mt-8 grid border-t border-line lg:grid-cols-3">
             {origins.map((o, i) => (
               <Reveal
                 as="li"
@@ -100,12 +100,12 @@ export default async function HeritagePage({ params }: LangParams) {
             <p className="lead mt-6 max-w-2xl text-ink-2">{h.gifts_lead}</p>
           </Reveal>
 
-          <div className="mt-14 divide-y divide-line border-y border-line">
+          <div className="mt-10 divide-y divide-line border-y border-line">
             {gifts.map((g) => (
               <Reveal key={g.id}>
                 <article
                   id={g.id}
-                  className="grid gap-4 py-10 lg:grid-cols-12 lg:gap-16"
+                  className="grid gap-4 py-7 lg:grid-cols-12 lg:gap-12"
                 >
                   <h3 className="h-card text-2xl lg:col-span-5">{tr(g.title, lang)}</h3>
                   <div className="lg:col-span-7">
@@ -143,7 +143,7 @@ export default async function HeritagePage({ params }: LangParams) {
           <Reveal delay={0.08}>
             <h2 className="label">{h.fort}</h2>
             <p className="mt-6 max-w-xl text-ink-2">{tr(fort, lang)}</p>
-            <p className="mt-10 border-t border-line pt-5 text-sm text-muted">
+            <p className="mt-8 border-t border-line pt-5 text-sm text-muted">
               <span className="font-bold text-ink">{h.sourcesLabel}: </span>
               {tr(sourceNote, lang)}
             </p>
