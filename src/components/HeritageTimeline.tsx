@@ -33,7 +33,7 @@ export function HeritageTimeline({
             type="button"
             aria-pressed={filter === o.id}
             onClick={() => setFilter(o.id)}
-            className={`min-h-11 border px-5 text-sm font-semibold transition-colors ${
+            className={`min-h-11 border px-3.5 text-sm sm:px-5 font-semibold transition-colors ${
               filter === o.id
                 ? "border-ink bg-ink text-white"
                 : "border-line hover:border-saffron-deep hover:text-saffron-deep"

@@ -87,7 +87,7 @@ export function MediaGallery({ lang, items, categories, copy }: Props) {
               type="button"
               aria-pressed={filter === c.id}
               onClick={() => setFilter(c.id)}
-              className={`min-h-11 border px-5 text-sm font-semibold transition-colors ${
+              className={`min-h-11 border px-3.5 text-sm sm:px-5 font-semibold transition-colors ${
                 filter === c.id
                   ? "border-ink bg-ink text-white"
                   : "border-line hover:border-saffron-deep hover:text-saffron-deep"
