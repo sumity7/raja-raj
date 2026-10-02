@@ -3,7 +3,7 @@ import { ArrowUpRight, Play } from "lucide-react";
 import { getDict } from "@/content/ui";
 import { type Lang } from "@/lib/i18n";
 import { site } from "@/lib/site";
-import { latestVideos } from "@/lib/youtube";
+import { latestVideos, uploadsPlaylistId } from "@/lib/youtube";
 import { FacebookFeed } from "./FacebookFeed";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -135,7 +135,18 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                 )}
               </div>
             ) : (
-              <p className="border border-line p-6 text-ink-2">{d.feed.empty}</p>
+              // The feed could not be read: show YouTube's own player with the channel's uploads.
+              <div className="border border-line lg:h-[calc(40rem+2px)]">
+                <iframe
+                  title={d.feed.youtube}
+                  src={`https://www.youtube-nocookie.com/embed/videoseries?list=${uploadsPlaylistId}`}
+                  loading="lazy"
+                  allow="accelerometer; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="block aspect-video w-full border-0 lg:h-full lg:aspect-auto"
+                />
+              </div>
             )}
           </Reveal>
         </div>
