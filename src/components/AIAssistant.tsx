@@ -1,21 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import Link from "next/link";
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
-import { ArrowUpRight, SendHorizontal, X } from "lucide-react";
+import { RotateCcw, SendHorizontal, X } from "lucide-react";
 import { ChatIcon } from "./icons";
 import { answerQuestion } from "@/content/assistant";
 import { getDict } from "@/content/ui";
-import { localePath, tr, type Lang } from "@/lib/i18n";
+import { tr, type Lang } from "@/lib/i18n";
+import { questionLang } from "@/lib/questionLang";
 
 type Message = {
   id: number;
   from: "user" | "bot";
   text: string;
-  link?: { href: string; label: string };
-  /** Offer the suggested questions again after an unanswered question. */
-  suggest?: boolean;
 };
 
 /**
@@ -30,7 +27,8 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
   const [draft, setDraft] = useState("");
   const [thinking, setThinking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const endRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const lastBotRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(1);
   const [scrolled, setScrolled] = useState(false);
   const [near, setNear] = useState(false);
@@ -47,8 +45,17 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
     if (open) inputRef.current?.focus();
   }, [open]);
 
+  // While waiting, show the question at the bottom; when the answer arrives, show it from its first
+  // line (not its last) so the visitor starts reading at the top instead of being thrown past it.
   useEffect(() => {
-    endRef.current?.scrollIntoView({ block: "end" });
+    const list = listRef.current;
+    if (!list) return;
+    const last = messages[messages.length - 1];
+    if (!thinking && last?.from === "bot" && lastBotRef.current) {
+      list.scrollTo({ top: Math.max(0, lastBotRef.current.offsetTop - 12), behavior: "smooth" });
+    } else {
+      list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+    }
   }, [messages, thinking]);
 
   useEffect(() => {
@@ -62,37 +69,46 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
     const text = question.trim();
     if (!text || thinking) return;
     const id = nextId.current++;
+    const history = messages.slice(-8).map(({ from, text }) => ({ from, text }));
     setMessages((prev) => [...prev, { id, from: "user", text }]);
     setDraft("");
     setThinking(true);
 
-    // The built-in answer is both the offline fallback and the source of the "read more" link.
-    const entry = answerQuestion(text);
+    // The built-in answer is the fallback when the AI is not set up, is busy or fails.
+    // Answers follow the language the question is written in, not the language of the page.
+    const fallback = tr(answerQuestion(text).answer, questionLang(text));
     const reply = (answer: string) => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: nextId.current++,
-          from: "bot",
-          text: answer,
-          link: entry.link
-            ? { href: localePath(lang, entry.link.href), label: tr(entry.link.label, lang) }
-            : undefined,
-        },
-      ]);
+      // Keep the chat plain: turn any markdown the model slips in into ordinary text.
+      const clean = answer
+        .replace(/\*\*(.+?)\*\*/g, "$1")
+        .replace(/^\s*[*-]\s+/gm, "• ")
+        .replace(/^#+\s*/gm, "")
+        .trim();
+      setMessages((prev) => [...prev, { id: nextId.current++, from: "bot", text: clean }]);
       setThinking(false);
+      window.setTimeout(() => inputRef.current?.focus(), 0);
     };
 
-    // Ask the AI first; if it is not set up, rate limited or fails, use the built-in answer.
     fetch("/api/assistant", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question: text, lang }),
+      body: JSON.stringify({ question: text, history }),
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
-      .then((data: { text?: string }) => reply(data.text || tr(entry.answer, lang)))
-      .catch(() => window.setTimeout(() => reply(tr(entry.answer, lang)), 350));
+      .then((data: { text?: string }) => reply(data.text || fallback))
+      .catch(() => reply(fallback));
   }
+
+  const reset = () => {
+    setMessages([]);
+    setDraft("");
+    setThinking(false);
+    inputRef.current?.focus();
+  };
+
+  // Questions the visitor has not asked yet, offered again after every answer.
+  const asked = new Set(messages.filter((m) => m.from === "user").map((m) => m.text));
+  const followUps = d.assistant.questions.filter((q) => !asked.has(q)).slice(0, 3);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -120,17 +136,30 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
                   </p>
                   <p className="mt-0.5 text-[0.8125rem] leading-snug text-white/70">{d.assistant.note}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  aria-label={d.assistant.close}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center hover:bg-white/10"
-                >
-                  <X aria-hidden="true" className="h-5 w-5" />
-                </button>
+                <div className="flex shrink-0 items-center">
+                  {messages.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={reset}
+                      aria-label={d.assistant.reset}
+                      title={d.assistant.reset}
+                      className="flex h-9 w-9 items-center justify-center hover:bg-white/10"
+                    >
+                      <RotateCcw aria-hidden="true" className="h-4 w-4" />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    aria-label={d.assistant.close}
+                    className="flex h-9 w-9 items-center justify-center hover:bg-white/10"
+                  >
+                    <X aria-hidden="true" className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
 
-              <div className="flex-1 space-y-4 overflow-y-auto px-5 py-5" aria-live="polite">
+              <div ref={listRef} className="relative flex-1 space-y-4 overflow-y-auto px-5 py-5" aria-live="polite">
                 <p className="max-w-[85%] bg-sand px-4 py-3 text-[0.95rem]">{d.assistant.hello}</p>
 
                 {messages.length === 0 && (
@@ -163,33 +192,12 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
                       {msg.text}
                     </p>
                   ) : (
-                    <div key={msg.id} className="max-w-[92%] bg-sand px-4 py-3 text-[0.95rem]">
-                      <p>{msg.text}</p>
-                      {msg.suggest && (
-                        <ul className="mt-3 flex flex-col items-start gap-2">
-                          {d.assistant.questions.slice(0, 4).map((q) => (
-                            <li key={q}>
-                              <button
-                                type="button"
-                                onClick={() => ask(q)}
-                                className="border border-line bg-white px-3 py-1.5 text-left text-sm transition-colors hover:border-saffron-deep hover:text-saffron-deep"
-                              >
-                                {q}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      {msg.link && (
-                        <Link
-                          href={msg.link.href}
-                          onClick={() => setOpen(false)}
-                          className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-deep hover:underline"
-                        >
-                          {msg.link.label}
-                          <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                        </Link>
-                      )}
+                    <div
+                      key={msg.id}
+                      ref={msg.id === messages[messages.length - 1]?.id ? lastBotRef : undefined}
+                      className="max-w-[92%] bg-sand px-4 py-3 text-[0.95rem]"
+                    >
+                      <p className="whitespace-pre-line">{msg.text}</p>
                     </div>
                   ),
                 )}
@@ -198,7 +206,25 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
                     …
                   </p>
                 )}
-                <div ref={endRef} />
+
+                {messages.length > 0 && !thinking && (
+                  <div>
+                    <p className="label mb-2">{d.assistant.more}</p>
+                    <ul className="flex flex-col items-start gap-2">
+                      {followUps.map((q) => (
+                        <li key={q}>
+                          <button
+                            type="button"
+                            onClick={() => ask(q)}
+                            className="border border-line px-3 py-1.5 text-left text-sm transition-colors hover:border-saffron-deep hover:text-saffron-deep"
+                          >
+                            {q}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <form onSubmit={onSubmit} className="flex border-t border-line">
