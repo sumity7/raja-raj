@@ -21,7 +21,7 @@ export default async function UpdatesPage({ params }: LangParams) {
   if (list.length === 0) notFound();
   const d = getDict(lang);
   const lead = list[0].featured || list.length === 1 ? list[0] : null;
-  const latestImage = list[0].image;
+  const latestImage = list[0].heroImage ?? list[0].image;
   const rest = lead ? list.slice(1) : list;
   return (
     <>

@@ -3,8 +3,9 @@ import { publishedUpdates } from "./updates";
 
 /**
  * The assistant answers only from these entries. Each one restates content that
- * is already published on the website. Anything that matches no entry, or that
- * touches a topic listed in `unsupported`, gets the standard "not available" reply.
+ * is already published on the website. Questions on politics (elections, posts, statements and
+ * so on) are answered with what the profile does record, and anything that matches no entry gets
+ * the general overview rather than a refusal.
  */
 
 export type KnowledgeEntry = {
@@ -14,12 +15,6 @@ export type KnowledgeEntry = {
   answer: L;
   link?: { href: string; label: L };
 };
-
-export const unsupported = [
-  "election", "vote", "votes", "voting", "constituency", "candidate", "minister", "salary",
-  "wealth", "property value", "criminal", "court case", "controversy", "opinion", "statement",
-  "quote", "award", "चुनाव", "वोट", "मतदान", "उम्मीदवार", "प्रत्याशी", "मंत्री", "संपत्ति", "विवाद", "पुरस्कार", "बयान",
-];
 
 const updatesAnswer = (): L => {
   const latest = publishedUpdates()[0];
@@ -59,6 +54,20 @@ export const knowledge = (): KnowledgeEntry[] => [
     answer: {
       en: "He is active in the Bharatiya Janata Party and came into public life through social work in his home region. The official profile does not record party posts, election results or dates for him.",
       hi: "वे भारतीय जनता पार्टी में सक्रिय हैं और अपने क्षेत्र में सामाजिक कार्यों के माध्यम से सार्वजनिक जीवन में आए। आधिकारिक प्रोफ़ाइल में उनके लिए कोई दलीय पद, चुनाव-परिणाम या तिथि दर्ज नहीं है।",
+    },
+    link: { href: "/about#journey", label: { en: "Political journey", hi: "राजनीतिक यात्रा" } },
+  },
+  {
+    id: "records",
+    keywords: [
+      "election", "elections", "vote", "votes", "voting", "constituency", "candidate", "minister", "salary",
+      "wealth", "property", "criminal", "court case", "controversy", "opinion", "statement", "quote", "award",
+      "party post", "position", "contest", "seat", "ticket",
+      "चुनाव", "वोट", "मतदान", "उम्मीदवार", "प्रत्याशी", "मंत्री", "संपत्ति", "विवाद", "पुरस्कार", "बयान", "पद", "टिकट", "सीट",
+    ],
+    answer: {
+      en: "The official profile does not record election results, constituency, party posts, ministerial office, awards, statements or personal finances for him, so there is nothing reliable to report on those. What is recorded is that he is active in the Bharatiya Janata Party and in public and social work around Jhandi Raj and Nighasan; his father, Raja Brajraj Singh, was twice an MLA from Srinagar (1974 and 1977).",
+      hi: "आधिकारिक प्रोफ़ाइल में उनके चुनाव-परिणाम, निर्वाचन क्षेत्र, दलीय पद, मंत्री पद, पुरस्कार, बयान या निजी वित्त का कोई विवरण दर्ज नहीं है, इसलिए इन पर कोई प्रामाणिक जानकारी नहीं दी जा सकती। जो दर्ज है: वे भारतीय जनता पार्टी में सक्रिय हैं और झंडी राज व निघासन क्षेत्र में सार्वजनिक व सामाजिक कार्य करते हैं; उनके पिता राजा ब्रजराज सिंह श्रीनगर से दो बार (1974 और 1977) विधायक रहे।",
     },
     link: { href: "/about#journey", label: { en: "Political journey", hi: "राजनीतिक यात्रा" } },
   },
@@ -186,9 +195,18 @@ export const knowledge = (): KnowledgeEntry[] => [
   },
 ];
 
-export function answerQuestion(question: string): KnowledgeEntry | null {
+/** Used when a question matches nothing specific: the overview, so the assistant still answers. */
+const overview = (): KnowledgeEntry => ({
+  ...knowledge().find((e) => e.id === "who")!,
+  id: "overview",
+  answer: {
+    en: "I don't have a specific answer to that on the official profile, but here is an overview. Raja Raj Rajeshwar Singh, known as Jhandi-Raj, belongs to the Jhandi Raj family of Kheri district. He trained as a mechanical engineer at B.I.T. Ranchi, has made agriculture his main occupation, and is active in the Bharatiya Janata Party and in public work around Jhandi Raj and Nighasan. You can also ask about his background, political journey, family, public work or latest updates.",
+    hi: "इस बारे में आधिकारिक प्रोफ़ाइल में कोई विशेष जानकारी नहीं है, पर संक्षिप्त परिचय यह है। राजा राज राजेश्वर सिंह, जो झंडी-राज के नाम से जाने जाते हैं, खीरी जनपद के झंडी राज परिवार से हैं। उन्होंने बी.आई.टी. रांची से मैकेनिकल इंजीनियरिंग की, कृषि को अपना मुख्य व्यवसाय बनाया और भारतीय जनता पार्टी तथा झंडी राज व निघासन क्षेत्र के सार्वजनिक कार्यों में सक्रिय हैं। आप उनकी पृष्ठभूमि, राजनीतिक यात्रा, परिवार, सार्वजनिक कार्य या ताज़ा समाचार के बारे में भी पूछ सकते हैं।",
+  },
+});
+
+export function answerQuestion(question: string): KnowledgeEntry {
   const q = question.toLowerCase();
-  if (unsupported.some((word) => q.includes(word))) return null;
 
   let best: KnowledgeEntry | null = null;
   let bestScore = 0;
@@ -202,5 +220,5 @@ export function answerQuestion(question: string): KnowledgeEntry | null {
       bestScore = score;
     }
   }
-  return best;
+  return best ?? overview();
 }

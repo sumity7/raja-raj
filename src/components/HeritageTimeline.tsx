@@ -52,8 +52,8 @@ export function HeritageTimeline({
             tone={entry.kind === "father" ? "ink" : "saffron"}
             className="pb-12"
           >
-            <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:gap-8">
-              <p className="font-display text-3xl font-bold text-saffron-deep">{entry.year}</p>
+            <div className="grid gap-2 sm:grid-cols-[10rem_1fr] sm:gap-8">
+              <p className="font-display text-3xl font-bold leading-tight text-saffron-deep">{entry.year}</p>
               <div>
                 <p className="label">{entry.kind === "father" ? copy.father : copy.family}</p>
                 <h3 className="h-card mt-1">{entry.title}</h3>

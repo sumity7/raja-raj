@@ -19,7 +19,7 @@ const date = (iso: string, lang: Lang) =>
 /** Latest posts from Facebook (its own scrolling panel) and latest videos from YouTube. */
 export async function SocialFeed({ lang }: { lang: Lang }) {
   const d = getDict(lang);
-  const videos = await latestVideos(5);
+  const videos = await latestVideos(4);
   const [first, ...rest] = videos;
 
   return (
@@ -72,14 +72,14 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
             </div>
 
             {first ? (
-              <>
+              <div className="lg:flex lg:h-[calc(40rem+2px)] lg:flex-col lg:overflow-hidden">
                 <a
                   href={`https://www.youtube.com/watch?v=${first.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block"
                 >
-                  <span className="relative block aspect-video overflow-hidden bg-ink">
+                  <span className="relative block aspect-video overflow-hidden bg-ink lg:aspect-auto lg:h-64">
                     <Image
                       src={first.thumbnail}
                       alt=""
@@ -93,8 +93,8 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                       </span>
                     </span>
                   </span>
-                  <span className="mt-4 block text-sm text-muted">{date(first.published, lang)}</span>
-                  <span className="mt-1 block text-xl font-semibold leading-snug group-hover:text-saffron-deep">
+                  <span className="mt-3 block text-sm text-muted">{date(first.published, lang)}</span>
+                  <span className="mt-1 line-clamp-2 block text-xl font-semibold leading-snug group-hover:text-saffron-deep">
                     {first.title}
                   </span>
                   <span className="sr-only">
@@ -103,16 +103,16 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                 </a>
 
                 {rest.length > 0 && (
-                  <ul className="mt-8 divide-y divide-line border-y border-line">
+                  <ul className="mt-4 divide-y divide-line border-y border-line lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
                     {rest.map((v) => (
-                      <li key={v.id}>
+                      <li key={v.id} className="lg:min-h-0 lg:flex-1">
                         <a
                           href={`https://www.youtube.com/watch?v=${v.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex items-center gap-4 py-4"
+                          className="group flex items-center gap-4 py-2 lg:h-full"
                         >
-                          <span className="relative block aspect-video w-32 shrink-0 overflow-hidden bg-ink sm:w-40">
+                          <span className="relative block aspect-video w-32 shrink-0 overflow-hidden bg-ink sm:w-40 lg:w-36">
                             <Image
                               src={v.thumbnail}
                               alt=""
@@ -123,7 +123,7 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                           </span>
                           <span className="min-w-0">
                             <span className="block text-sm text-muted">{date(v.published, lang)}</span>
-                            <span className="mt-0.5 block font-semibold leading-snug group-hover:text-saffron-deep">
+                            <span className="mt-0.5 line-clamp-2 block font-semibold leading-snug group-hover:text-saffron-deep">
                               {v.title}
                             </span>
                             <span className="sr-only">(opens in a new tab)</span>
@@ -133,7 +133,7 @@ export async function SocialFeed({ lang }: { lang: Lang }) {
                     ))}
                   </ul>
                 )}
-              </>
+              </div>
             ) : (
               <p className="border border-line p-6 text-ink-2">{d.feed.empty}</p>
             )}

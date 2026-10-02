@@ -72,7 +72,7 @@ export type MilestoneKind = "family" | "father";
 
 export const milestones: { year: string; kind: MilestoneKind; title: L; body: L }[] = [
   {
-    year: "17th c.",
+    year: "17th century",
     kind: "family",
     title: { en: "The family settles in Kheri", hi: "परिवार का खीरी में बसना" },
     body: {

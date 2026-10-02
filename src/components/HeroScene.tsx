@@ -3,7 +3,7 @@ import type { HeroSlide } from "@/content/heroSlides";
 /**
  * The setting behind each portrait: clean, flat tonal shapes on warm ivory, no texture or noise.
  *  - profile:     nested arches that glow lighter toward the portrait
- *  - journey:     a pale wall panel above a darker floor band, with a thin timeline across
+ *  - journey:     a pale wall panel above a darker floor band
  *  - public-life: layered olive ridges and a soft disc, a wide horizontal composition
  * Nothing here pretends to be a photograph. The right side fades into the ivory on the left so
  * the words stay readable.
@@ -63,7 +63,7 @@ export function PersonHalo({ id }: { id: string }) {
   return null;
 }
 
-/** Slide 2: a darker floor band under the desk and a thin timeline across the wall. */
+/** Slide 2: a darker floor band under the desk. */
 function Study() {
   return (
     <svg
@@ -72,11 +72,6 @@ function Study() {
       preserveAspectRatio="xMaxYMax slice"
     >
       <rect x="0" y="560" width="800" height="140" fill="#d9c29a" opacity="0.55" />
-      <path d="M0 215H800" stroke="#8a6a3a" strokeWidth="1.2" opacity="0.4" />
-      {[120, 320, 520].map((x) => (
-        <circle key={x} cx={x} cy="215" r="6" fill="#f7f1e7" stroke="#8a6a3a" strokeWidth="1.2" opacity="0.9" />
-      ))}
-      <circle cx="720" cy="215" r="8" fill="#e85a16" />
     </svg>
   );
 }

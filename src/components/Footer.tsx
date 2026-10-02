@@ -76,46 +76,34 @@ export function Footer({ lang }: { lang: Lang }) {
           </div>
         </div>
 
-        {/* Digital experience partner: a rounded partner badge, not a full-width box. */}
-        <div className="mt-14 flex sm:justify-end">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-white/75">
+            © {year} {site.name[lang]}. {d.footer.rights}
+          </p>
+
+          {/* Digital experience partner: a small rounded badge level with the copyright line. */}
           <a
             href={site.praib.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex w-full max-w-md items-center justify-between gap-4 rounded-full border border-white/25 bg-white/[0.03] py-3 pl-6 pr-3 transition-[border-color,background-color] duration-300 hover:border-saffron/70 hover:bg-white/[0.07] sm:w-auto sm:min-w-[24rem] sm:gap-10 sm:pl-9"
+            className="group flex w-fit items-center gap-4 rounded-full border border-white/25 bg-white/[0.03] py-1.5 pl-4 pr-1.5 transition-[border-color,background-color] duration-300 hover:border-saffron/70 hover:bg-white/[0.07]"
           >
             <span className="min-w-0">
-              <span className="block text-[0.8125rem] font-semibold uppercase tracked text-white/75">
+              <span className="block text-[0.625rem] font-semibold uppercase tracked text-white/75">
                 {d.footer.creditLabel}
               </span>
-              <span className="mt-1 block whitespace-nowrap text-[1.1rem] font-bold leading-tight text-white min-[380px]:text-xl sm:text-[1.6rem]">
+              <span className="block whitespace-nowrap text-sm font-bold leading-tight text-white">
                 {site.praib.name}
               </span>
             </span>
             <span
               aria-hidden="true"
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-saffron min-[380px]:h-14 min-[380px]:w-14 text-saffron transition-[background-color,color,transform] duration-300 group-hover:rotate-12 group-hover:scale-105 group-hover:bg-saffron group-hover:text-ink sm:h-16 sm:w-16"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-saffron text-saffron transition-[background-color,color] duration-300 group-hover:bg-saffron group-hover:text-ink"
             >
-              <ArrowUpRight className="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:-rotate-12 sm:h-7 sm:w-7" />
+              <ArrowUpRight className="h-4 w-4" />
             </span>
             <span className="sr-only">(opens in a new tab)</span>
           </a>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-3 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-2 text-sm text-white/75">
-            <p>
-              © {year} {site.name[lang]}. {d.footer.rights}
-            </p>
-            <p className="flex gap-5">
-              <Link href={localePath(lang, "/privacy")} className="hover:text-white">
-                {d.legal.privacy}
-              </Link>
-              <Link href={localePath(lang, "/terms")} className="hover:text-white">
-                {d.legal.terms}
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </footer>

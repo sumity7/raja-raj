@@ -228,7 +228,7 @@ export const media: MediaItem[] = [
       en: "Raja Raj Rajeshwar Singh walking, in a red waistcoat and white kurta pyjama",
       hi: "लाल जैकेट और सफ़ेद कुर्ता-पायजामा में चलते हुए राजा राज राजेश्वर सिंह",
     },
-    caption: { en: "Official portrait, full length", hi: "आधिकारिक चित्र, पूर्ण लंबाई" },
+    caption: { en: "Official portrait", hi: "आधिकारिक चित्र" },
     tone: "sand",
   },
 ];

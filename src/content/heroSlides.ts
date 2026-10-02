@@ -118,8 +118,8 @@ export const heroSlides: HeroSlide[] = [
     secondary: { label: { en: "Latest updates", hi: "ताज़ा अपडेट" }, href: "/updates" },
     shadow: { left: 50, width: 34 },
     person: {
-      src: "/images/hero/slide-3.webp",
-      width: 452,
+      src: "/images/hero/slide-3-v2.webp",
+      width: 352,
       height: 724,
       fit: "tall",
       alt: {

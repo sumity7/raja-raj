@@ -130,7 +130,6 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
               >
                 <div className="flex items-center gap-3">
                   <span className="font-display text-lg font-semibold text-saffron-deep">{s.number}</span>
-                  <span aria-hidden="true" className="h-px w-8 bg-saffron-deep/50" />
                   <p className={`text-xs font-semibold text-saffron-deep ${caps}`}>{tr(s.eyebrow, lang)}</p>
                 </div>
 
@@ -144,9 +143,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                   {title.map((line, n) => (
                     <span
                       key={line}
-                      className={`block max-w-full translate-y-3 opacity-0 transition-[opacity,transform] duration-[900ms] ease-out group-data-[state=active]/s:translate-y-0 group-data-[state=active]/s:opacity-100 motion-reduce:translate-y-0 ${
-                        s.id === "profile" && n === title.length - 1 ? "text-saffron-deep" : ""
-                      }`}
+                      className="block max-w-full translate-y-3 opacity-0 transition-[opacity,transform] duration-[900ms] ease-out group-data-[state=active]/s:translate-y-0 group-data-[state=active]/s:opacity-100 motion-reduce:translate-y-0"
                       style={{ transitionDelay: active ? `${250 + n * 110}ms` : "0ms" }}
                     >
                       {line}
@@ -189,10 +186,8 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                 active ? "delay-300 motion-reduce:delay-0" : ""
               } ${
                 wide
-                  ? "justify-end lg:bottom-[calc(3rem-10%)] lg:right-0 lg:h-[calc(100%-4.5rem+10%)] lg:max-h-[52rem] lg:w-[62%] 2xl:right-[max(0px,calc((100vw-90rem)/2-4rem))]"
-                  : `justify-center lg:bottom-[calc(3rem-20%)] lg:h-[calc(100%-4rem+20%)] lg:w-[38%] lg:justify-end lg:right-[2%] 2xl:right-[calc((100vw-90rem)/2+7rem)] ${
-                      s.id === "public-life" ? "lg:max-h-[50rem]" : "lg:max-h-[60rem]"
-                    }`
+                  ? "justify-end lg:bottom-[calc(3rem-4.5%)] lg:right-0 lg:h-[calc(100%-4.5rem+20%)] lg:max-h-[60rem] lg:w-[62%] 2xl:right-[max(0px,calc((100vw-90rem)/2-4rem))]"
+                  : `justify-center ${s.id === "profile" ? "lg:bottom-[calc(3rem-30%)]" : "lg:bottom-[calc(3rem-20%)]"} lg:h-[calc(100%-4rem+20%)] lg:max-h-[60rem] lg:w-[38%] lg:justify-end lg:right-[2%] 2xl:right-[calc((100vw-90rem)/2+7rem)]`
               }`}
             >
               {wide ? (
@@ -203,7 +198,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                   height={s.person.height}
                   loading="lazy"
                   sizes="(min-width: 1024px) 62vw, 100vw"
-                  className="h-full w-full select-none object-contain object-bottom lg:object-right-bottom"
+                  className="h-full w-full select-none object-cover object-[52%_bottom] lg:object-contain lg:object-right-bottom"
                 />
               ) : (
                 <div className="relative h-full max-w-full" style={{ aspectRatio: `${s.person.width} / ${s.person.height}` }}>

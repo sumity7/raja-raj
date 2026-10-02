@@ -35,6 +35,8 @@ export type Update = {
   location?: L;
   /** Primary photograph, used on cards and at the top of the article. */
   image?: UpdateImage;
+  /** Photograph for the top of the Updates page, when it should differ from `image`. */
+  heroImage?: UpdateImage;
   /** Further photographs shown after the article text. */
   gallery?: UpdateImage[];
   /** Id of a video in content/media.ts that belongs to this update. */
@@ -100,6 +102,20 @@ export const updates: Update[] = [
         caption: {
           en: "Inspecting river erosion and the flood situation on site.",
           hi: "मौके पर नदी कटान और बाढ़ की स्थिति का मुआयना।",
+        },
+        position: "50% 50%",
+      },
+    heroImage: {
+        src: "/images/updates/jasnagar-flood-main.webp",
+        width: 1180,
+        height: 786,
+        alt: {
+          en: "Walking along a village lane with officials and police personnel during the visit",
+          hi: "भ्रमण के दौरान गाँव की गली में अधिकारियों और पुलिसकर्मियों के साथ पैदल चलते हुए",
+        },
+        caption: {
+          en: "On the visit to the affected area.",
+          hi: "प्रभावित क्षेत्र के भ्रमण के दौरान।",
         },
         position: "50% 50%",
       },

@@ -39,7 +39,7 @@ export default async function AboutPage({ params }: LangParams) {
   const m = d.milestones;
 
   const entries = milestones.map((e) => ({
-    year: e.year === "17th c." && lang === "hi" ? "17वीं सदी" : e.year,
+    year: e.year === "17th century" && lang === "hi" ? "17वीं सदी" : e.year,
     kind: e.kind,
     title: tr(e.title, lang),
     body: tr(e.body, lang),
