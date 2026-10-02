@@ -19,9 +19,9 @@ type Message = {
 };
 
 /**
- * A small, deliberately limited assistant. It does not call a language model:
- * every reply is an approved passage from content/assistant.ts, so it cannot
- * produce claims that are not already published on the site.
+ * A small, deliberately limited assistant. When GEMINI_API_KEY is set, /api/assistant answers with
+ * Gemini using only the passages in content/assistant.ts; otherwise (or on any failure) the reply
+ * is the approved passage itself, so it cannot produce claims that are not published on the site.
  */
 export default function AIAssistant({ lang }: { lang: Lang }) {
   const d = getDict(lang);
@@ -66,22 +66,32 @@ export default function AIAssistant({ lang }: { lang: Lang }) {
     setDraft("");
     setThinking(true);
 
+    // The built-in answer is both the offline fallback and the source of the "read more" link.
     const entry = answerQuestion(text);
-    window.setTimeout(() => {
+    const reply = (answer: string) => {
       setMessages((prev) => [
         ...prev,
         {
           id: nextId.current++,
           from: "bot",
-          text: entry ? tr(entry.answer, lang) : d.assistant.unavailable,
-          link: entry?.link
+          text: answer,
+          link: entry.link
             ? { href: localePath(lang, entry.link.href), label: tr(entry.link.label, lang) }
             : undefined,
-          suggest: !entry,
         },
       ]);
       setThinking(false);
-    }, 350);
+    };
+
+    // Ask the AI first; if it is not set up, rate limited or fails, use the built-in answer.
+    fetch("/api/assistant", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: text, lang }),
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((data: { text?: string }) => reply(data.text || tr(entry.answer, lang)))
+      .catch(() => window.setTimeout(() => reply(tr(entry.answer, lang)), 350));
   }
 
   const onSubmit = (e: FormEvent) => {
