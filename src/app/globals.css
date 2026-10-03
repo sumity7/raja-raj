@@ -302,6 +302,34 @@ h4 {
   color: #fff;
 }
 
+/* ---------- Home hero: the profile portrait ----------
+ * The profile photo is an upper-body crop, the journey photo a wide desk scene. To make him read at
+ * the same size on both slides, the profile box is derived from --h2, the height the journey photo
+ * renders at (its rules live on the slide-2 wrapper in HeroSlider): there his head is 38% of the photo
+ * and starts 7.45% down; here it is 35.4% and starts 1.4% down, so this box is 1.074 x --h2 tall and
+ * its top sits where his hair line meets the journey slide's. The waist runs off the hero bottom.
+ * Measured against its @container-size parent (cqh/cqw = that box). */
+.hero-bust {
+  /* Small screens: the journey photo covers the space under the words. */
+  --h2: max(100cqh, 100cqw / 1.4635);
+  position: absolute;
+  left: 50%;
+  translate: -47.6% 0; /* his face is at 47.6% of the photo's width */
+  top: calc(100cqh - var(--h2) * 0.9405);
+  height: calc(var(--h2) * 1.074);
+}
+@media (min-width: 1024px) {
+  .hero-bust {
+    /* Wide screens: the journey photo is contained in a box 62% wide (at most 1.32 x the hero height)
+       and 120% - 4.5rem tall (at most 60rem), its bottom 3rem - 4.5% above the hero bottom. */
+    --h2: min(120cqh - 4.5rem, 60rem, min(62cqw, 132cqh) / 1.4635);
+    left: auto;
+    right: calc(var(--h2) * 0.218);
+    translate: none;
+    top: calc(104.5cqh - 3rem - var(--h2) * 0.9405);
+  }
+}
+
 /* ---------- Motion (CSS only, so the hero never waits for JS) ---------- */
 @keyframes rise {
   from {

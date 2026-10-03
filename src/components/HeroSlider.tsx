@@ -19,7 +19,7 @@ const arrow =
   "absolute top-[66%] z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-ink/20 bg-paper/70 text-ink backdrop-blur-sm transition duration-200 hover:scale-105 hover:border-saffron-deep hover:bg-paper hover:text-saffron-deep lg:top-1/2";
 
 /**
- * Home hero: three slides filling the first screen under the header. On wide screens the words sit
+ * Home hero: two slides filling the first screen under the header. On wide screens the words sit
  * on the left and the portrait on the right, standing in the slide's own setting; on small screens
  * the words come first and the portrait takes the rest of the height. Autoplay pauses on hover and
  * focus, and is off for visitors who prefer reduced motion.
@@ -107,7 +107,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
         const state = i === index ? "active" : i < index ? "before" : "after";
         const active = state === "active";
         const title = s.title[lang];
-        const wide = s.person.fit === "wide";
+        const bust = s.person.fit === "bust";
         return (
           <div
             key={s.id}
@@ -166,7 +166,7 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                     <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-hover/b:translate-x-1" />
                   </Link>
                 </div>
-                <dl className={`mt-7 hidden border-t border-ink/20 pt-4 [@media(min-height:46rem)]:xl:block ${wide ? "max-w-[29rem]" : "max-w-[34rem]"}`}>
+                <dl className={`mt-7 hidden border-t border-ink/20 pt-4 [@media(min-height:46rem)]:xl:block ${bust ? "max-w-[34rem]" : "max-w-[29rem]"}`}>
                   <dt className={`mb-3 text-[0.6875rem] font-semibold text-saffron-deep ${caps}`}>{tr(s.snapshot.title, lang)}</dt>
                   <dd className="grid grid-cols-3 gap-x-5">
                     {s.snapshot.rows.map((row) => (
@@ -185,12 +185,29 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
               className={`relative z-10 mt-1 flex min-h-0 flex-1 translate-x-[30px] items-end opacity-0 transition-[opacity,translate,transform] duration-[1100ms] ease-out group-data-[state=active]/s:translate-x-0 group-data-[state=active]/s:opacity-100 group-data-[state=before]/s:-translate-x-5 motion-reduce:translate-x-0 lg:absolute lg:mt-0 lg:flex-none ${
                 active ? "delay-300 motion-reduce:delay-0" : ""
               } ${
-                wide
-                  ? "justify-end lg:bottom-[calc(3rem-4.5%)] lg:right-0 lg:h-[calc(100%-4.5rem+20%)] lg:max-h-[60rem] lg:w-[62%] lg:max-w-[calc(min(max(100svh-7.6rem,32rem),62rem)*1.32)]"
-                  : `justify-center ${s.id === "profile" ? "lg:bottom-[calc(3rem-30%)]" : "lg:bottom-[calc(3rem-20%)]"} lg:h-[calc(100%-4rem+20%)] lg:max-h-[60rem] lg:w-[38%] lg:justify-end lg:right-[2%] 2xl:right-[calc((100vw-90rem)/2+7rem)]`
+                bust
+                  ? // The box the portrait measures itself against (see .hero-bust): the space under the
+                    // words on small screens, the whole hero on wide ones.
+                    "@container-size lg:inset-0"
+                  : "justify-end lg:bottom-[calc(3rem-4.5%)] lg:right-0 lg:h-[calc(100%-4.5rem+20%)] lg:max-h-[60rem] lg:w-[62%] lg:max-w-[calc(min(max(100svh-7.6rem,32rem),62rem)*1.32)]"
               }`}
             >
-              {wide ? (
+              {bust ? (
+                // Sized and placed so his head matches the journey slide's photo; the waist runs off the hero.
+                <div className="hero-bust" style={{ aspectRatio: `${s.person.width} / ${s.person.height}` }}>
+                  <PersonHalo id={s.id} />
+                  <Image
+                    src={s.person.src}
+                    alt={tr(s.person.alt, lang)}
+                    width={s.person.width}
+                    height={s.person.height}
+                    priority={i === 0}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="relative h-full w-full select-none object-contain object-bottom"
+                  />
+                </div>
+              ) : (
                 <Image
                   src={s.person.src}
                   alt={tr(s.person.alt, lang)}
@@ -200,20 +217,6 @@ export function HeroSlider({ lang, siteName }: { lang: Lang; siteName: string })
                   sizes="(min-width: 1024px) 62vw, 100vw"
                   className="h-full w-full select-none object-cover object-[52%_bottom] lg:object-contain lg:object-right-bottom lg:[mask-image:linear-gradient(to_right,transparent,black_12%)]"
                 />
-              ) : (
-                <div className="relative h-full max-w-full" style={{ aspectRatio: `${s.person.width} / ${s.person.height}` }}>
-                  <PersonHalo id={s.id} />
-                  <Image
-                    src={s.person.src}
-                    alt={tr(s.person.alt, lang)}
-                    width={s.person.width}
-                    height={s.person.height}
-                    priority={i === 0}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    sizes="(min-width: 1024px) 40vw, 90vw"
-                    className="relative h-full w-full select-none object-contain object-bottom drop-shadow-[0_14px_22px_rgba(45,30,15,0.18)]"
-                  />
-                </div>
               )}
             </div>
           </div>
