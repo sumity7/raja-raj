@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { UpdateCard } from "@/components/UpdateCard";
 import { communityFaith, publicConnect, publicWork, regionalIssues } from "@/content/publicLife";
 import { updateCategories, updates } from "@/content/updates";
+import { pageSeo } from "@/content/seo";
 import { getDict } from "@/content/ui";
 import { localePath, tr } from "@/lib/i18n";
 import { getLang, type LangParams } from "@/lib/page";
@@ -16,8 +17,13 @@ const PATH = "/public-life";
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
   const lang = await getLang(params);
-  const d = getDict(lang);
-  return buildMetadata({ lang, path: PATH, title: d.publicLife.title, description: d.publicLife.description });
+  return buildMetadata({
+    lang,
+    path: PATH,
+    absoluteTitle: true,
+    title: pageSeo.publicLife.title[lang],
+    description: pageSeo.publicLife.description[lang],
+  });
 }
 
 export default async function PublicLifePage({ params }: LangParams) {
@@ -43,7 +49,7 @@ export default async function PublicLifePage({ params }: LangParams) {
         crumbs={[{ name: p.title, path: PATH }]}
         title={p.title}
         lead={p.lead}
-        description={p.description}
+        description={pageSeo.publicLife.description[lang]}
         image={heroImages.publicLife}
         links={index.map((i) => ({ label: tr(i.title, lang), href: `${PATH}#${i.id}` }))}
       />
@@ -132,6 +138,21 @@ export default async function PublicLifePage({ params }: LangParams) {
           )}
         </div>
       </div>
+
+      <nav aria-label={d.biography.alsoSee} className="border-t border-line bg-white py-10">
+        <div className="shell flex flex-wrap gap-x-12 gap-y-4">
+          {[
+            { href: "/updates", label: d.updates.title },
+            { href: "/media", label: d.nav.media },
+            { href: "/about", label: d.nav.about },
+          ].map((l) => (
+            <Link key={l.href} href={localePath(lang, l.href)} className="link-arrow">
+              {l.label}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          ))}
+        </div>
+      </nav>
     </>
   );
 }

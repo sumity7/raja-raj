@@ -8,9 +8,11 @@ import { VideoCard } from "@/components/VideoCard";
 import { media } from "@/content/media";
 import { publishedUpdates, updateCategories, updates } from "@/content/updates";
 import { getDict } from "@/content/ui";
-import { locales, tr } from "@/lib/i18n";
+import { localePath, locales, tr } from "@/lib/i18n";
 import { getLang } from "@/lib/page";
 import { articleLd, buildMetadata } from "@/lib/seo";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type Props = { params: Promise<{ lang: string; slug: string }> };
 
@@ -34,7 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: tr(update.summary, lang),
     type: "article",
     publishedTime: update.date,
-    image: update.image?.src,
+    image: update.image && {
+      src: update.image.src,
+      width: update.image.width,
+      height: update.image.height,
+      alt: tr(update.image.alt, lang),
+    },
   });
 }
 
@@ -130,6 +137,20 @@ export default async function UpdatePage({ params }: Props) {
           </div>
         </div>
       </article>
+      <nav aria-label={d.biography.alsoSee} className="border-t border-line bg-white py-10">
+        <div className="shell flex flex-wrap gap-x-12 gap-y-4">
+          {[
+            { href: "/updates", label: d.updates.title },
+            { href: "/public-life", label: d.nav.publicLife },
+            { href: "/media", label: d.nav.media },
+          ].map((l) => (
+            <Link key={l.href} href={localePath(lang, l.href)} className="link-arrow">
+              {l.label}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          ))}
+        </div>
+      </nav>
       <JsonLd
         data={articleLd({
           lang,

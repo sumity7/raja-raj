@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { fort, gifts, heritageIntro, highlights, origins, raghubar, sourceNote, succession } from "@/content/heritage";
+import { pageSeo } from "@/content/seo";
 import { getDict } from "@/content/ui";
-import { tr } from "@/lib/i18n";
+import { localePath, tr } from "@/lib/i18n";
 import { getLang, type LangParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
 
@@ -11,8 +14,13 @@ const PATH = "/about/heritage";
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
   const lang = await getLang(params);
-  const d = getDict(lang);
-  return buildMetadata({ lang, path: PATH, title: d.heritage.title, description: d.heritage.description });
+  return buildMetadata({
+    lang,
+    path: PATH,
+    absoluteTitle: true,
+    title: pageSeo.heritage.title[lang],
+    description: pageSeo.heritage.description[lang],
+  });
 }
 
 export default async function HeritagePage({ params }: LangParams) {
@@ -27,7 +35,7 @@ export default async function HeritagePage({ params }: LangParams) {
         path={PATH}
         title={h.title}
         lead={tr(heritageIntro, lang)}
-        description={h.description}
+        description={pageSeo.heritage.description[lang]}
         crumbs={[
           { name: d.nav.about, path: "/about" },
           { name: h.title, path: PATH },
@@ -150,6 +158,21 @@ export default async function HeritagePage({ params }: LangParams) {
           </Reveal>
         </div>
       </section>
+
+      <nav aria-label={d.biography.alsoSee} className="border-t border-line bg-white py-10">
+        <div className="shell flex flex-wrap gap-x-12 gap-y-4">
+          {[
+            { href: "/about", label: d.nav.about },
+            { href: "/about#journey", label: d.nav.politicalJourney },
+            { href: "/public-life", label: d.nav.publicLife },
+          ].map((l) => (
+            <Link key={l.href} href={localePath(lang, l.href)} className="link-arrow">
+              {l.label}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          ))}
+        </div>
+      </nav>
     </>
   );
 }

@@ -10,7 +10,8 @@ type PageMeta = {
   path: string;
   title: string;
   description: string;
-  image?: string;
+  /** Path of an image under /public, or the image with its real size and description. */
+  image?: string | { src: string; width: number; height: number; alt?: string };
   type?: "website" | "article";
   /** Use the title as-is instead of applying the "%s | Name" template. */
   absoluteTitle?: boolean;
@@ -36,8 +37,9 @@ export function buildMetadata({
   publishedTime,
 }: PageMeta): Metadata {
   // The page template adds the person's name to titles, so leave room for it.
-  title = clip(title, absoluteTitle ? 70 : 44);
-  description = clip(description, 158);
+  title = clip(title, absoluteTitle ? 70 : 90);
+  description = clip(description, 160);
+  const img = typeof image === "string" ? { src: image, width: 1200, height: 630, alt: site.name[lang] } : image;
   const canonical = localePath(lang, path);
   const languages: Record<string, string> = Object.fromEntries(
     locales.map((l) => [l, localePath(l, path)]),
@@ -57,13 +59,13 @@ export function buildMetadata({
       alternateLocale: locales.filter((l) => l !== lang).map((l) => ogLocale[l]),
       type,
       ...(publishedTime ? { publishedTime } : {}),
-      images: [{ url: image, width: 1200, height: 630, alt: site.name[lang] }],
+      images: [{ url: img.src, width: img.width, height: img.height, alt: img.alt ?? site.name[lang] }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [img.src],
     },
   };
 }
@@ -83,6 +85,10 @@ export function breadcrumbLd(lang: Lang, crumbs: Crumb[]) {
   };
 }
 
+const websiteId = (lang: Lang) => `${absoluteUrl(localePath(lang))}#website`;
+const personId = `${site.url}/#person`;
+const inLanguage = (lang: Lang) => (lang === "hi" ? "hi-IN" : "en-IN");
+
 export function webPageLd(lang: Lang, path: string, name: string, description: string) {
   return {
     "@context": "https://schema.org",
@@ -91,21 +97,37 @@ export function webPageLd(lang: Lang, path: string, name: string, description: s
     url: absoluteUrl(localePath(lang, path)),
     name,
     description,
-    inLanguage: lang === "hi" ? "hi-IN" : "en-IN",
-    isPartOf: { "@id": `${site.url}/#website` },
-    about: { "@id": `${site.url}/#person` },
+    inLanguage: inLanguage(lang),
+    isPartOf: { "@id": websiteId(lang) },
+    about: { "@id": personId },
   };
 }
 
-export function websiteLd(lang: Lang) {
+/** For the pages that are the profile of the person: the home page and About. The Person itself is defined in the layout. */
+export function profilePageLd(lang: Lang, path: string, name: string, description: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${absoluteUrl(localePath(lang, path))}#webpage`,
+    url: absoluteUrl(localePath(lang, path)),
+    name,
+    description,
+    inLanguage: inLanguage(lang),
+    isPartOf: { "@id": websiteId(lang) },
+    mainEntity: { "@id": personId },
+  };
+}
+
+export function websiteLd(lang: Lang, description: string) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${site.url}/#website`,
+    "@id": websiteId(lang),
     url: absoluteUrl(localePath(lang)),
     name: site.name[lang],
-    inLanguage: ["en-IN", "hi-IN"],
-    publisher: { "@id": `${site.url}/#person` },
+    description,
+    inLanguage: inLanguage(lang),
+    publisher: { "@id": personId },
   };
 }
 
@@ -113,7 +135,7 @@ export function personLd(lang: Lang, description: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": `${site.url}/#person`,
+    "@id": personId,
     name: site.name[lang],
     alternateName: [site.name.en, site.name.hi, site.alias.en, site.alias.hi, ...site.otherNames],
     url: absoluteUrl(localePath(lang)),
@@ -138,16 +160,17 @@ export function articleLd(opts: {
   image?: string;
 }) {
   const { lang, path, headline, description, date, image } = opts;
+  const person = { "@type": "Person", "@id": personId, name: site.name[lang], url: absoluteUrl(localePath(lang)) };
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: headline[lang],
     description: description[lang],
-    ...(date ? { datePublished: date } : {}),
-    inLanguage: lang === "hi" ? "hi-IN" : "en-IN",
+    ...(date ? { datePublished: date, dateModified: date } : {}),
+    inLanguage: inLanguage(lang),
     mainEntityOfPage: absoluteUrl(localePath(lang, path)),
-    author: { "@id": `${site.url}/#person` },
-    publisher: { "@id": `${site.url}/#person` },
+    author: person,
+    publisher: person,
     image: absoluteUrl(image ?? "/images/og/og-default.jpg"),
   };
 }

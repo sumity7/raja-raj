@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { HeroPhoto, PageHero } from "@/components/PageHero";
 import { UpdateCard } from "@/components/UpdateCard";
 import { publishedUpdates } from "@/content/updates";
+import { pageSeo } from "@/content/seo";
 import { getDict } from "@/content/ui";
 import { getLang, type LangParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
@@ -11,8 +12,13 @@ const PATH = "/updates";
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
   const lang = await getLang(params);
-  const d = getDict(lang);
-  return buildMetadata({ lang, path: PATH, title: d.updates.title, description: d.updates.description });
+  return buildMetadata({
+    lang,
+    path: PATH,
+    absoluteTitle: true,
+    title: pageSeo.updates.title[lang],
+    description: pageSeo.updates.description[lang],
+  });
 }
 
 export default async function UpdatesPage({ params }: LangParams) {
@@ -41,7 +47,7 @@ export default async function UpdatesPage({ params }: LangParams) {
         }
         path={PATH}
         title={d.updates.title}
-        description={d.updates.description}
+        description={pageSeo.updates.description[lang]}
         crumbs={[{ name: d.updates.title, path: PATH }]}
       />
       <div className="section shell">

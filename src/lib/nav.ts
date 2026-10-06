@@ -52,18 +52,12 @@ export function buildNav(d: Dict): NavItem[] {
   return items;
 }
 
-/** Every indexable route, without the language prefix. Used by the sitemap. */
+/**
+ * Every route that belongs in the sitemap, without the language prefix. The privacy and terms
+ * pages stay indexable but are left out: they are not pages anyone searches for.
+ */
 export function allRoutes(): string[] {
-  const routes = [
-    "",
-    "/about",
-    "/about/heritage",
-    "/public-life",
-    "/media",
-    "/contact",
-    "/privacy",
-    "/terms",
-  ];
+  const routes = ["", "/about", "/about/heritage", "/public-life", "/media", "/contact"];
   if (publishedUpdates().length > 0) {
     routes.push("/updates", ...publishedUpdates().map((u) => `/updates/${u.slug}`));
   }

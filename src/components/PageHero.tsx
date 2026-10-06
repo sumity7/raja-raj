@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import type { HeroImage } from "@/content/heroImages";
 import { getDict } from "@/content/ui";
 import { localePath, tr, type Lang } from "@/lib/i18n";
-import { breadcrumbLd, webPageLd, type Crumb } from "@/lib/seo";
+import { breadcrumbLd, profilePageLd, webPageLd, type Crumb } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { JsonLd } from "./JsonLd";
@@ -28,12 +28,15 @@ export function PageHero({
   meta,
   points,
   visual,
+  profile,
 }: {
   lang: Lang;
   path: string;
   crumbs: Crumb[];
   title: string;
   lead?: string;
+  /** Mark the page as the profile of the person in structured data (ProfilePage instead of WebPage). */
+  profile?: boolean;
   /** A further paragraph under the lead. */
   body?: string;
   description: string;
@@ -72,7 +75,12 @@ export function PageHero({
           {visual && <div className="min-w-0 lg:col-span-5">{visual}</div>}
         </div>
       </div>
-      <JsonLd data={[breadcrumbLd(lang, all), webPageLd(lang, path, title, description)]} />
+      <JsonLd
+        data={[
+          breadcrumbLd(lang, all),
+          (profile ? profilePageLd : webPageLd)(lang, path, title, description),
+        ]}
+      />
     </header>
   );
 }

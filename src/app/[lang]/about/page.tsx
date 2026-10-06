@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { heroImages } from "@/content/heroImages";
 import { milestones } from "@/content/journey";
 import { biography, quickFacts } from "@/content/profile";
+import { pageSeo } from "@/content/seo";
 import { getDict } from "@/content/ui";
 import { localePath, tr } from "@/lib/i18n";
 import { getLang, type LangParams } from "@/lib/page";
@@ -19,12 +20,12 @@ const PATH = "/about";
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
   const lang = await getLang(params);
-  const d = getDict(lang);
   return buildMetadata({
     lang,
     path: PATH,
-    title: d.nav.about,
-    description: d.biography.description,
+    absoluteTitle: true,
+    title: pageSeo.about.title[lang],
+    description: pageSeo.about.description[lang],
   });
 }
 
@@ -54,7 +55,8 @@ export default async function AboutPage({ params }: LangParams) {
         eyebrow={d.nav.about}
         title={site.name[lang]}
         lead={d.biography.lead}
-        description={d.biography.description}
+        description={pageSeo.about.description[lang]}
+        profile
         meta={site.place[lang]}
         visual={<HeroPortrait image={heroImages.portrait} lang={lang} />}
       />
@@ -117,6 +119,7 @@ export default async function AboutPage({ params }: LangParams) {
           {[
             { href: "/about/heritage", label: d.nav.heritage },
             { href: "/public-life", label: d.nav.publicLife },
+            { href: "/media", label: d.nav.media },
           ].map((l) => (
             <Link key={l.href} href={localePath(lang, l.href)} className="link-arrow">
               {l.label}

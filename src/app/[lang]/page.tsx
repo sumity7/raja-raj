@@ -12,10 +12,9 @@ import { PublicLife } from "@/components/PublicLife";
 import { SocialFeed } from "@/components/SocialFeed";
 import { SocialSection } from "@/components/SocialSection";
 import { Updates } from "@/components/Updates";
-import { getDict } from "@/content/ui";
 import { getLang, type LangParams } from "@/lib/page";
-import { buildMetadata, webPageLd } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { homeSeo } from "@/content/seo";
+import { buildMetadata, profilePageLd } from "@/lib/seo";
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
   const lang = await getLang(params);
@@ -23,20 +22,13 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
     lang,
     path: "",
     absoluteTitle: true,
-    title:
-      lang === "hi"
-        ? `${site.name.hi} (झंडी-राज) | आधिकारिक वेबसाइट`
-        : `${site.name.en} (Jhandi-Raj) | Official Website`,
-    description:
-      lang === "hi"
-        ? "खीरी जनपद के झंडी राज परिवार से राजा राज राजेश्वर सिंह की आधिकारिक प्रोफ़ाइल: जीवन परिचय, परिवार एवं विरासत, राजनीतिक यात्रा और सार्वजनिक जीवन।"
-        : "Official profile of Raja Raj Rajeshwar Singh of the Jhandi Raj family, Kheri: biography, family and heritage, political journey and public life.",
+    title: homeSeo.title[lang],
+    description: homeSeo.description[lang],
   });
 }
 
 export default async function HomePage({ params }: LangParams) {
   const lang = await getLang(params);
-  const d = getDict(lang);
   return (
     <>
       <Hero lang={lang} />
@@ -51,7 +43,7 @@ export default async function HomePage({ params }: LangParams) {
       <SocialFeed lang={lang} />
       <SocialSection lang={lang} />
       <ContactSection lang={lang} />
-      <JsonLd data={webPageLd(lang, "", site.name[lang], d.hero.lead)} />
+      <JsonLd data={profilePageLd(lang, "", homeSeo.title[lang], homeSeo.description[lang])} />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { getDict } from "@/content/ui";
 import { isLang, locales, type Lang } from "@/lib/i18n";
+import { homeSeo } from "@/content/seo";
 import { site } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { personLd, websiteLd } from "@/lib/seo";
@@ -47,19 +48,17 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(site.url),
     title: {
-      default:
-        lang === "hi"
-          ? `${name} (झंडी-राज) | आधिकारिक वेबसाइट`
-          : `${name} (Jhandi-Raj) | Official Website`,
+      default: homeSeo.title[lang],
       template: `%s | ${name}`,
     },
-    description:
-      lang === "hi"
-        ? "खीरी जनपद के झंडी राज परिवार से राजा राज राजेश्वर सिंह की आधिकारिक प्रोफ़ाइल: जीवन परिचय, परिवार एवं विरासत, राजनीतिक यात्रा और सार्वजनिक जीवन।"
-        : "Official profile of Raja Raj Rajeshwar Singh of the Jhandi Raj family, Kheri: biography, family and heritage, political journey and public life.",
+    description: homeSeo.description[lang],
     applicationName: name,
     authors: [{ name }],
     robots: { index: true, follow: true },
+    // Set GOOGLE_SITE_VERIFICATION to the token Search Console gives for the "HTML tag" method.
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+      ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+      : {}),
     formatDetection: { telephone: false },
   };
 }
@@ -105,7 +104,7 @@ export default async function LangLayout({
         </main>
         <Footer lang={lang} />
         <AssistantLoader lang={lang} />
-        <JsonLd data={[websiteLd(lang), personLd(lang, d.biography.lead)]} />
+        <JsonLd data={[websiteLd(lang, homeSeo.description[lang]), personLd(lang, d.biography.lead)]} />
       </body>
     </html>
   );

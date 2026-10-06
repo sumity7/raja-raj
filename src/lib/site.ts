@@ -1,7 +1,23 @@
 import type { L } from "./i18n";
 
+const PRODUCTION_URL = "https://www.rajarajrajeshwarsingh.in";
+
+/**
+ * Canonical origin for every absolute URL (canonical links, hreflang, Open Graph, sitemap, robots,
+ * structured data). NEXT_PUBLIC_SITE_URL overrides it, but a production build never accepts a
+ * localhost, plain-http or *.vercel.app value, so a missing or wrong env var cannot leak into search.
+ */
+function resolveSiteUrl() {
+  const fromEnv = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim().replace(/\/$/, "");
+  if (!fromEnv) return PRODUCTION_URL;
+  if (process.env.NODE_ENV === "production" && !/^https:\/\/(?!localhost)(?!.*\.vercel\.app)/.test(fromEnv)) {
+    return PRODUCTION_URL;
+  }
+  return fromEnv;
+}
+
 export const site = {
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
+  url: resolveSiteUrl(),
   name: {
     en: "Raja Raj Rajeshwar Singh",
     hi: "राजा राज राजेश्वर सिंह",
